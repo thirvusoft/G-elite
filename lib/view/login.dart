@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:gelite/controller/koottamcontroller.dart';
 import 'package:gelite/untils/colors.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -24,6 +25,7 @@ class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
 
   get sha256 => null;
+  final Koottamcontroller kottamcontroller = Get.put(Koottamcontroller());
 
   @override
   Widget build(BuildContext context) {
@@ -111,6 +113,7 @@ class _LoginState extends State<Login> {
                         fontWeight: FontWeight.w700),
                   ),
                   onPressed: () {
+                     print(kottamcontroller.kottom.value);
                     if (_formKey.currentState!.validate()) {
                       // Get.toNamed("screen2");
                       setState(() {

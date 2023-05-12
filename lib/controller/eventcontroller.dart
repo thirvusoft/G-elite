@@ -1,10 +1,6 @@
 import "dart:convert";
-
 import 'package:http/http.dart' as http;
-
-import "package:dio/dio.dart";
 import "package:get/state_manager.dart";
-
 import "../models/event.dart";
 
 class Eventcontroller extends GetxController {
