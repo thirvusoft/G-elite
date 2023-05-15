@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 import '../view/home_page.dart';
-import '../view/test.dart';
+import '../view/bottomnavigation.dart';
 
 class Routes {
   static String screen1 = '/login';

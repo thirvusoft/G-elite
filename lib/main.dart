@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gelite/untils/colors.dart';
+import 'package:gelite/utils/colors.dart';
 import 'package:gelite/view/login.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,11 +17,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.screen5,
+      initialRoute: Routes.screen1,
       getPages: getPages,
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0xFFEDEFFE),
-        //google fonts lato theme...
         textTheme: GoogleFonts.poppinsTextTheme(
           Theme.of(context).textTheme,
         ),

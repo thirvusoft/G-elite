@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
-import 'package:gelite/untils/colors.dart';
-import 'package:gelite/untils/helper.dart';
+import 'package:gelite/utils/colors.dart';
+import 'package:gelite/utils/helper.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
