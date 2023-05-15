@@ -1,12 +1,13 @@
-import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gelite/controller/koottamcontroller.dart';
 import 'package:gelite/untils/colors.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,8 +24,6 @@ class _LoginState extends State<Login> {
   bool _isHidden = true;
   bool _result = false;
   final _formKey = GlobalKey<FormState>();
-
-  get sha256 => null;
   final Koottamcontroller kottamcontroller = Get.put(Koottamcontroller());
 
   @override
@@ -113,7 +112,7 @@ class _LoginState extends State<Login> {
                         fontWeight: FontWeight.w700),
                   ),
                   onPressed: () {
-                     print(kottamcontroller.kottom.value);
+                    print(kottamcontroller.kottom.value);
                     if (_formKey.currentState!.validate()) {
                       // Get.toNamed("screen2");
                       setState(() {
@@ -130,7 +129,35 @@ class _LoginState extends State<Login> {
                         )
                       : const Text('LOGIN'),
                 ),
-              )
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              RichText(
+                text: TextSpan(
+                    text: "Don't have an account? ",
+                    style: GoogleFonts.nunitoSans(
+                      textStyle: TextStyle(
+                          color: AppColors.textcolour,
+                          letterSpacing: .5,
+                          fontSize: 20),
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: " Sign up",
+                        style: GoogleFonts.nunitoSans(
+                          textStyle: TextStyle(
+                              color: AppColors.primaryColor,
+                              letterSpacing: .5,
+                              fontSize: 20),
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Get.toNamed("/signup");
+                          },
+                      )
+                    ]),
+              ),
             ],
           )),
     ))));
