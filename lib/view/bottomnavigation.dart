@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
-import 'package:gelite/untils/colors.dart';
+import 'package:gelite/utils/colors.dart';
 import 'package:gelite/view/user_list.dart';
 import 'package:get/get.dart';
 

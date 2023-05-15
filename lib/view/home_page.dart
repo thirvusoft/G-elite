@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
-import 'package:gelite/untils/colors.dart';
+import 'package:gelite/utils/colors.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
