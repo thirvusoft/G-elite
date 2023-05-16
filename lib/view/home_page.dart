@@ -4,9 +4,7 @@ import 'package:gelite/utils/colors.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
-
 import '../controller/eventcontroller.dart';
-import '../controller/koottamcontroller.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -52,10 +50,15 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                         left: 20,
                         child: Row(
                           children: [
-                            const CircleAvatar(
-                              radius: 26,
-                              backgroundImage: AssetImage('assets/profile.png'),
-                            ),
+                            GestureDetector(
+                                onTap: () {
+                                  Get.toNamed("/profile");
+                                },
+                                child: const CircleAvatar(
+                                  radius: 26,
+                                  backgroundImage:
+                                      AssetImage('assets/profile.png'),
+                                )),
                             const SizedBox(
                               width: 280,
                             ),
@@ -229,4 +232,5 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
           ),
         )));
   }
+  
 }

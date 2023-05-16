@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../view/home_page.dart';
 import '../view/bottomnavigation.dart';
+import '../view/profile.dart';
 
 class Routes {
   static String screen1 = '/login';
@@ -13,7 +14,7 @@ class Routes {
   static String screen3 = '/Homepage';
   static String screen4 = '/Userlist';
   static String screen5 = '/signup';
-  static String screen6 = '/screen6';
+  static String screen6 = '/profile';
 }
 
 /// Add this list variable into your GetMaterialApp as the value of getPages parameter.
@@ -41,8 +42,8 @@ final getPages = [
     name: Routes.screen5,
     page: () => const Signup(),
   ),
-//   GetPage(
-//     name: Routes.screen6,
-//     page: () => const Screen6(),
-//   ),
+  GetPage(
+    name: Routes.screen6,
+    page: () => const Profile(),
+  ),
 ];
