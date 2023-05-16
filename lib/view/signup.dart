@@ -182,7 +182,7 @@ class _SignupState extends State<Signup> {
                       controller: emailidController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter mobile number';
+                          return 'Please enter email address';
                         }
                         RegExp regex = RegExp(
                             r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
@@ -365,7 +365,7 @@ class _SignupState extends State<Signup> {
                       },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter mobile number';
+                          return 'Please enter password';
                         }
                         return null;
                       },
