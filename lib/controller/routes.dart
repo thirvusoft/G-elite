@@ -1,5 +1,6 @@
 import 'package:gelite/view/login.dart';
 import 'package:gelite/view/signup.dart';
+import 'package:gelite/view/test.dart';
 import 'package:gelite/view/user_list.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class Routes {
   static String screen4 = '/Userlist';
   static String screen5 = '/signup';
   static String screen6 = '/profile';
+  static String screen7 = '/filepicker';
 }
 
 /// Add this list variable into your GetMaterialApp as the value of getPages parameter.
@@ -45,5 +47,9 @@ final getPages = [
   GetPage(
     name: Routes.screen6,
     page: () => const Profile(),
+  ),
+  GetPage(
+    name: Routes.screen7,
+    page: () => const MultipleFilepickerScreen(),
   ),
 ];

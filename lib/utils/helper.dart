@@ -21,5 +21,5 @@ TextEditingController profilebloodController = TextEditingController();
 TextEditingController profilepasswordController = TextEditingController();
 TextEditingController profileconfirmController = TextEditingController();
 
-
-
+double value = 0.0;
+bool upload = false;

@@ -49,6 +49,8 @@ dependencies:
   searchfield: ^0.8.0
   syncfusion_flutter_datepicker: ^21.2.4
   heroicons: ^0.8.0
+  file_picker: ^5.3.0
+  dotted_border: ^2.0.0+3
 
 dev_dependencies:
   flutter_test:
