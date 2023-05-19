@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
+import 'package:gelite/controller/signupcontroller.dart';
 import 'package:gelite/utils/colors.dart';
 import 'package:gelite/utils/helper.dart';
 import 'package:get/get.dart';
@@ -18,12 +22,16 @@ class Signup extends StatefulWidget {
 
 class _SignupState extends State<Signup> {
   final Koottamcontroller kottamcontroller = Get.put(Koottamcontroller());
+  final Signupcontroller signupcontroller = Get.put(Signupcontroller());
+
   final _signupKey = GlobalKey<FormState>();
   bool _isHidden = true;
   bool _result = false;
   String password = '';
   String confirmPassword = '';
   List koottam = [];
+  List district = [];
+  List area = [];
   @override
   void initState() {
     super.initState();
@@ -43,7 +51,8 @@ class _SignupState extends State<Signup> {
                 PhosphorIcons.caret_left,
               ),
               onPressed: () {
-                Get.toNamed("/login");
+                print(dotenv.env['API_URL']);
+                // Get.toNamed("/login");
               },
             ),
           ),
@@ -71,6 +80,7 @@ class _SignupState extends State<Signup> {
                     Row(children: [
                       Expanded(
                         child: TextFormField(
+                          textCapitalization: TextCapitalization.words,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           controller: firstnameController,
                           validator: (value) {
@@ -88,7 +98,7 @@ class _SignupState extends State<Signup> {
                               borderSide: BorderSide(
                                   width: 1, color: AppColors.textcolour),
                             ),
-                            labelText: "First Name",
+                            labelText: "First Name *",
                           ),
                         ),
                       ),
@@ -97,6 +107,7 @@ class _SignupState extends State<Signup> {
                       ),
                       Expanded(
                           child: TextFormField(
+                        controller: lastnameController,
                         decoration: InputDecoration(
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -110,11 +121,16 @@ class _SignupState extends State<Signup> {
                       height: 15,
                     ),
                     TextFormField(
+                      maxLength: 10,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       controller: mobilenumberController,
+                      keyboardType: TextInputType.phone,
                       onTap: () {
                         setState(() {
                           koottam = kottamcontroller.kottom;
+                          district = kottamcontroller.district;
+                          district.sort();
+                          koottam.sort();
                         });
                       },
                       validator: (value) {
@@ -124,6 +140,7 @@ class _SignupState extends State<Signup> {
                         return null;
                       },
                       decoration: InputDecoration(
+                        counterText: '',
                         suffixIcon: const HeroIcon(
                           HeroIcons.phone,
                           size: 20,
@@ -132,7 +149,7 @@ class _SignupState extends State<Signup> {
                           borderSide:
                               BorderSide(width: 1, color: AppColors.textcolour),
                         ),
-                        labelText: "Mobile Number",
+                        labelText: "Mobile Number *",
                       ),
                     ),
                     const SizedBox(
@@ -171,7 +188,7 @@ class _SignupState extends State<Signup> {
                           borderSide:
                               BorderSide(width: 1, color: AppColors.textcolour),
                         ),
-                        labelText: "Koottam",
+                        labelText: "Koottam *",
                       ),
                     ),
                     const SizedBox(
@@ -201,7 +218,7 @@ class _SignupState extends State<Signup> {
                           borderSide:
                               BorderSide(width: 1, color: AppColors.textcolour),
                         ),
-                        labelText: "Email Address",
+                        labelText: "Email Address *",
                       ),
                     ),
                     const SizedBox(
@@ -224,7 +241,7 @@ class _SignupState extends State<Signup> {
                           borderSide:
                               BorderSide(width: 1, color: AppColors.textcolour),
                         ),
-                        labelText: "D.O.B",
+                        labelText: "D.O.B *",
                       ),
                       style: const TextStyle(),
                       readOnly: true,
@@ -257,19 +274,37 @@ class _SignupState extends State<Signup> {
                     const SizedBox(
                       height: 15,
                     ),
+                    TextFormField(
+                      keyboardType: TextInputType.multiline,
+                      maxLines: 3,
+                      controller: landmarkController,
+                      decoration: InputDecoration(
+                        suffixIcon: const Icon(
+                          PhosphorIcons.map_pin,
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(width: 1, color: AppColors.textcolour),
+                        ),
+                        labelText: "Land Mark",
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
                     SearchField(
                       controller: districtController,
                       // controller: district_list_text,
-                      // validator: (value) {
-                      //   if (value == null || value.isEmpty) {
-                      //     return 'Please select District';
-                      //   }
-                      //   if (!districts.contains(value)) {
-                      //     return 'District not found';
-                      //   }
-                      //   return null;
-                      // },
-                      suggestions: koottam
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please select District';
+                        }
+                        if (!district.contains(value)) {
+                          return 'District not found';
+                        }
+                        return null;
+                      },
+                      suggestions: district
                           .map((String) => SearchFieldListItem(String))
                           .toList(),
                       suggestionState: Suggestion.expand,
@@ -282,6 +317,11 @@ class _SignupState extends State<Signup> {
                       ),
                       onSuggestionTap: (x) {
                         FocusScope.of(context).unfocus();
+                        kottamcontroller.fetchArea(districtController.text);
+                        setState(() {
+                          area = kottamcontroller.area;
+                          area.sort();
+                        });
                       },
                       searchInputDecoration: InputDecoration(
                         suffixIcon: const Icon(PhosphorIcons.buildings),
@@ -289,7 +329,7 @@ class _SignupState extends State<Signup> {
                           borderSide:
                               BorderSide(width: 1, color: AppColors.textcolour),
                         ),
-                        labelText: "District",
+                        labelText: "District *",
                       ),
                     ),
                     const SizedBox(
@@ -307,7 +347,7 @@ class _SignupState extends State<Signup> {
                       //   }
                       //   return null;
                       // },
-                      suggestions: koottam
+                      suggestions: area
                           .map((String) => SearchFieldListItem(String))
                           .toList(),
                       suggestionState: Suggestion.expand,
@@ -327,28 +367,32 @@ class _SignupState extends State<Signup> {
                           borderSide:
                               BorderSide(width: 1, color: AppColors.textcolour),
                         ),
-                        labelText: "Area",
+                        labelText: "Area *",
                       ),
                     ),
                     const SizedBox(
                       height: 15,
                     ),
                     TextFormField(
+                      maxLength: 6,
+                      keyboardType: TextInputType.phone,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       controller: pincodeController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter mobile number';
+                          return 'Please enter pincode';
                         }
+
                         return null;
                       },
                       decoration: InputDecoration(
+                        counterText: '',
                         suffixIcon: const Icon(PhosphorIcons.list_numbers),
                         enabledBorder: UnderlineInputBorder(
                           borderSide:
                               BorderSide(width: 1, color: AppColors.textcolour),
                         ),
-                        labelText: "Pincode",
+                        labelText: "Pincode *",
                       ),
                     ),
                     const SizedBox(
@@ -370,11 +414,12 @@ class _SignupState extends State<Signup> {
                         return null;
                       },
                       decoration: InputDecoration(
+                        counterText: '',
                         enabledBorder: UnderlineInputBorder(
                           borderSide:
                               BorderSide(width: 1, color: AppColors.textcolour),
                         ),
-                        labelText: "Password",
+                        labelText: "Password *",
                         suffixIcon: IconButton(
                           icon: Icon((_isHidden)
                               ? PhosphorIcons.eye
@@ -408,7 +453,7 @@ class _SignupState extends State<Signup> {
                           borderSide:
                               BorderSide(width: 1, color: AppColors.textcolour),
                         ),
-                        labelText: "Confirm Password",
+                        labelText: "Confirm Password *",
                       ),
                     ),
                     const SizedBox(
@@ -430,9 +475,25 @@ class _SignupState extends State<Signup> {
                               letterSpacing: 1.0,
                               fontWeight: FontWeight.w700),
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           if (_signupKey.currentState!.validate()) {
                             // Get.toNamed("screen2");
+                            FocusScope.of(context).unfocus();
+                            signupcontroller.signUp(json.encode({
+                              "email": emailidController.text,
+                              "first_name": firstnameController.text,
+                              "last_name": lastnameController.text,
+                              "mobile_no": mobilenumberController.text,
+                              "birth_date": dobController.text,
+                              "kootam_kovil": kootamController.text,
+                              "territory": districtController.text,
+                              "password": confirmController.text,
+                              "address_line1": areaController.text,
+                              "address_line2": landmarkController.text,
+                              "city": districtController.text,
+                              "state": "Tamil Nadu",
+                              "pincode": pincodeController.text
+                            }));
                           }
                         },
                         child: (_result)
