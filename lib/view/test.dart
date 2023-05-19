@@ -1,8 +1,5 @@
 import 'dart:async';
-import 'dart:io';
-
 import 'package:dotted_border/dotted_border.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:gelite/controller/filecontroller.dart';
@@ -221,7 +218,6 @@ class _MultipleFilepickerScreenState extends State<MultipleFilepickerScreen> {
                   filepi.uploadFiles();
                   bool allFilesUploaded = await filepi.uploadFiles();
                   if (allFilesUploaded) {
-                    print("All files uploaded successfully!");
                     setState(() {
                       upload = false;
                     });

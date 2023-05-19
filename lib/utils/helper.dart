@@ -4,6 +4,7 @@ TextEditingController passController = TextEditingController();
 TextEditingController mobilerController = TextEditingController();
 //signup
 TextEditingController firstnameController = TextEditingController();
+TextEditingController lastnameController = TextEditingController();
 TextEditingController mobilenumberController = TextEditingController();
 TextEditingController kootamController = TextEditingController();
 TextEditingController emailidController = TextEditingController();
@@ -13,6 +14,7 @@ TextEditingController areaController = TextEditingController();
 TextEditingController pincodeController = TextEditingController();
 TextEditingController passwordController = TextEditingController();
 TextEditingController confirmController = TextEditingController();
+TextEditingController landmarkController = TextEditingController();
 //profile
 TextEditingController profileemailidController = TextEditingController();
 TextEditingController profilemobilnumberController = TextEditingController();
