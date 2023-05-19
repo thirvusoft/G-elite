@@ -32,7 +32,7 @@ class _SignupState extends State<Signup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.secondaryColor,
         appBar: AppBar(
           toolbarHeight: 100,
           centerTitle: true,
