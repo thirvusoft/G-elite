@@ -4,6 +4,8 @@ import 'package:gelite/utils/colors.dart';
 import 'package:gelite/view/user_list.dart';
 import 'package:get/get.dart';
 
+import '../controller/eventcontroller.dart';
+import '../controller/userlistcontroller.dart';
 import 'home_page.dart';
 
 class LandingPageController extends GetxController {
@@ -11,6 +13,21 @@ class LandingPageController extends GetxController {
 
   void changeTabIndex(int index) {
     tabIndex.value = index;
+    if (tabIndex.value == 1) {
+      if (Get.isRegistered<UserController>()) {
+        Get.find<UserController>().fetchEvents();
+      } else {
+        final UserController usercontroller = Get.put(UserController());
+        usercontroller.fetchEvents();
+      }
+    } else {
+      if (Get.isRegistered<Eventcontroller>()) {
+        Get.find<Eventcontroller>().fetchEvents();
+      } else {
+        final Eventcontroller usercontroller = Get.put(Eventcontroller());
+        usercontroller.fetchEvents();
+      }
+    }
   }
 
   @override

@@ -35,7 +35,7 @@ class _ProfileState extends State<Profile> {
                 PhosphorIcons.caret_left,
               ),
               onPressed: () {
-                Get.toNamed("/Homepage");
+                Get.toNamed("/LandingPage");
               },
             ),
           ),
@@ -77,7 +77,7 @@ class _ProfileState extends State<Profile> {
                             // fit: BoxFit.cover,
                             matchTextDirection: true,
                             image: NetworkImage(
-                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaYXAEbhjwPG22qOBDO-bBDC8bUL6AEwkex1zes2-59vOp0qOk-svdY3k7TwtD6xy6cOU&usqp=CAU"),
+                                "https://pbs.twimg.com/profile_images/1321030814436655106/87OcbZNm_400x400.jpg"),
                           ),
                         ),
                       ),

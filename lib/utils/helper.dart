@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+import '../controller/eventcontroller.dart';
 
 TextEditingController passController = TextEditingController();
 TextEditingController mobilerController = TextEditingController();
@@ -25,3 +29,10 @@ TextEditingController profileconfirmController = TextEditingController();
 
 double value = 0.0;
 bool upload = false;
+
+//login
+var kootam = "";
+var fulname = "";
+var currentIndex = 0;
+Eventcontroller eventcontroller = Get.put(Eventcontroller());
+var eventcode = "";
