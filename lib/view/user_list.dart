@@ -25,9 +25,9 @@ class _UserlistState extends State<Userlist> {
   final UserController usercontroller = Get.put(UserController());
   late Timer timer;
 
-  bool isTextFieldVisible = false;
+  bool isTextFieldVisible = true;
   double textFieldOpacity = 0.0;
-  bool _result = true;
+  bool _result = false;
   @override
   void initState() {
     super.initState();

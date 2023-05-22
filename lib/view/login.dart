@@ -140,31 +140,6 @@ class _LoginState extends State<Login> {
               const SizedBox(
                 height: 20,
               ),
-              RichText(
-                text: TextSpan(
-                    text: "Don't have an account? ",
-                    style: GoogleFonts.nunitoSans(
-                      textStyle: TextStyle(
-                          color: AppColors.textcolour,
-                          letterSpacing: .5,
-                          fontSize: 20),
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: " Sign up",
-                        style: GoogleFonts.nunitoSans(
-                          textStyle: TextStyle(
-                              color: AppColors.primaryColor,
-                              letterSpacing: .5,
-                              fontSize: 20),
-                        ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Get.toNamed("/signup");
-                          },
-                      )
-                    ]),
-              ),
             ],
           )),
     ))));
@@ -185,6 +160,7 @@ class _LoginState extends State<Login> {
           'password': phone,
         },
       );
+      print(response.data);
       if (response.statusCode == 200) {
         var value;
         setState(() {
@@ -192,11 +168,10 @@ class _LoginState extends State<Login> {
           value = response.data;
         });
         print(value["full_name"]);
-        await prefs.setString('token', value["token"]);
-        await prefs.setString('full_name', value["full_name"]);
-        await prefs.setString('kottam', value["kottam"]);
+
         print("lllllllllllllllllllllll");
         print(prefs.getString('kottam'));
+
         Fluttertoast.showToast(
             msg: value["message"],
             toastLength: Toast.LENGTH_SHORT,
@@ -205,7 +180,15 @@ class _LoginState extends State<Login> {
             backgroundColor: Colors.green[50],
             textColor: AppColors.primaryColor,
             fontSize: 16.0);
-        Get.toNamed("/LandingPage");
+        await prefs.setString('token', value["token"]);
+        await prefs.setString('full_name', value["full_name"]);
+        await prefs.setString('kottam', value["kottam"]);
+        await prefs.setString('roll', value["roll"]);
+        if (value["roll"] == "super_admin") {
+          Get.offAllNamed("/landingPage1");
+        } else {
+          Get.toNamed("/LandingPage");
+        }
       }
     } catch (e) {
       // Handle error

@@ -36,3 +36,13 @@ var fulname = "";
 var currentIndex = 0;
 Eventcontroller eventcontroller = Get.put(Eventcontroller());
 var eventcode = "";
+bool result = true;
+
+//event creaton
+TextEditingController startdataController = TextEditingController();
+TextEditingController enddataController = TextEditingController();
+TextEditingController uerController = TextEditingController();
+TextEditingController subController = TextEditingController();
+List userlist=[];
+
+
