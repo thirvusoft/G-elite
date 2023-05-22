@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:gelite/utils/colors.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 import '../controller/eventcontroller.dart';
 
@@ -16,10 +19,18 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
   final Eventcontroller eventcontroller = Get.put(Eventcontroller());
   TabController? _tabController;
+  late Timer timer;
+
+  bool _result = true;
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    timer = Timer(const Duration(seconds: 2), () {
+      setState(() {
+        _result = false;
+      });
+    });
   }
 
   @override
@@ -146,81 +157,114 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                                 height: 10,
                                 child: Padding(
                                     padding: const EdgeInsets.only(top: 10.0),
-                                    child: Obx(
-                                      () => ListView.builder(
-                                          itemCount:
-                                              eventcontroller.eventList.length,
-                                          shrinkWrap: true,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            var count = index + 1;
-                                            final event = eventcontroller
-                                                .eventList[index];
+                                    child: (_result)
+                                        ? Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            // crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Center(
+                                                child: LoadingAnimationWidget
+                                                    .discreteCircle(
+                                                  color: AppColors.primaryColor,
+                                                  size: 30,
+                                                  secondRingColor: Colors.white,
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        : Obx(
+                                            () => ListView.builder(
+                                                itemCount: eventcontroller
+                                                    .eventList.length,
+                                                shrinkWrap: true,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  var count = index + 1;
+                                                  final event = eventcontroller
+                                                      .eventList[index];
 
-                                            return Card(
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            15)),
-                                                child: ListTile(
-                                                    leading: CircleAvatar(
-                                                        backgroundColor:
-                                                            AppColors
-                                                                .secondaryColor,
-                                                        child: Text(
-                                                            count.toString())),
-                                                    subtitle: Text(event
-                                                        .startsOn
-                                                        .toString()),
-                                                    trailing: Icon(
-                                                        PhosphorIcons
-                                                            .caret_right,
-                                                        color: AppColors
-                                                            .primaryColor),
-                                                    title: Text(
-                                                        event.name.toString())));
-                                          }),
-                                    ))),
+                                                  return GestureDetector(
+                                                      onTap: () {
+                                                        Get.toNamed("/qr");
+                                                      },
+                                                      child: Card(
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius.circular(
+                                                                      15)),
+                                                          child: ListTile(
+                                                              leading: CircleAvatar(
+                                                                  backgroundColor: AppColors
+                                                                      .secondaryColor,
+                                                                  child: Text(count
+                                                                      .toString())),
+                                                              subtitle: Text(event
+                                                                  .startsOn
+                                                                  .toString()),
+                                                              trailing: Icon(
+                                                                  PhosphorIcons
+                                                                      .caret_right,
+                                                                  color: AppColors.primaryColor),
+                                                              title: Text(event.name.toString()))));
+                                                }),
+                                          ))),
                             SizedBox(
                                 width: 10,
                                 height: 10,
                                 child: Padding(
                                     padding: const EdgeInsets.only(top: 10.0),
-                                    child: Obx(
-                                      () => ListView.builder(
-                                          itemCount:
-                                              eventcontroller.eventLists.length,
-                                          shrinkWrap: true,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            var count = index + 1;
-                                            final event = eventcontroller
-                                                .eventLists[index];
+                                    child: (_result)
+                                        ? Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            // crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Center(
+                                                child: LoadingAnimationWidget
+                                                    .discreteCircle(
+                                                  color: AppColors.primaryColor,
+                                                  size: 30,
+                                                  secondRingColor: Colors.white,
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        : Obx(
+                                            () => ListView.builder(
+                                                itemCount: eventcontroller
+                                                    .eventLists.length,
+                                                shrinkWrap: true,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  var count = index + 1;
+                                                  final event = eventcontroller
+                                                      .eventLists[index];
 
-                                            return Card(
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            15)),
-                                                child: ListTile(
-                                                    leading: CircleAvatar(
-                                                        backgroundColor:
-                                                            AppColors
-                                                                .secondaryColor,
-                                                        child: Text(
-                                                            count.toString())),
-                                                    subtitle: Text(event
-                                                        .startsOn
-                                                        .toString()),
-                                                    trailing: Icon(
-                                                        PhosphorIcons
-                                                            .caret_right,
-                                                        color: AppColors
-                                                            .primaryColor),
-                                                    title: Text(
-                                                        event.name.toString())));
-                                          }),
-                                    ))),
+                                                  return GestureDetector(
+                                                      child: Card(
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius.circular(
+                                                                      15)),
+                                                          child: ListTile(
+                                                              leading: CircleAvatar(
+                                                                  backgroundColor: AppColors
+                                                                      .secondaryColor,
+                                                                  child: Text(count
+                                                                      .toString())),
+                                                              subtitle: Text(event
+                                                                  .startsOn
+                                                                  .toString()),
+                                                              trailing: Icon(
+                                                                  PhosphorIcons
+                                                                      .caret_right,
+                                                                  color: AppColors.primaryColor),
+                                                              title: Text(event.name.toString()))));
+                                                }),
+                                          ))),
                           ]),
                         )
                       ],
@@ -232,5 +276,4 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
           ),
         )));
   }
-  
 }

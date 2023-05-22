@@ -453,7 +453,7 @@ class _SignupState extends State<Signup> {
                           borderSide:
                               BorderSide(width: 1, color: AppColors.textcolour),
                         ),
-                        labelText: "Confirm Password *",
+                        labelText: "Confirm Password * ",
                       ),
                     ),
                     const SizedBox(
@@ -477,7 +477,6 @@ class _SignupState extends State<Signup> {
                         ),
                         onPressed: () async {
                           if (_signupKey.currentState!.validate()) {
-                            // Get.toNamed("screen2");
                             FocusScope.of(context).unfocus();
                             signupcontroller.signUp(json.encode({
                               "email": emailidController.text,

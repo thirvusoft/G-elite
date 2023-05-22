@@ -1,7 +1,7 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gelite/controller/koottamcontroller.dart';
@@ -10,6 +10,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
 import '../utils/helper.dart';
 
@@ -45,6 +47,7 @@ class _LoginState extends State<Login> {
                 ),
               ),
               TextFormField(
+                maxLength: 10,
                 keyboardType: TextInputType.phone,
                 controller: mobilerController,
                 validator: (value) {
@@ -111,7 +114,11 @@ class _LoginState extends State<Login> {
                         letterSpacing: 1.0,
                         fontWeight: FontWeight.w700),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
+                    // const number = '08592119XXXX'; //set the number here
+                    // bool? res =
+                    //     await FlutterPhoneDirectCaller.callNumber(number);
+
                     print(kottamcontroller.kottom.value);
                     if (_formKey.currentState!.validate()) {
                       // Get.toNamed("screen2");
@@ -169,7 +176,7 @@ class _LoginState extends State<Login> {
     final dio = Dio();
     try {
       final response = await dio.post(
-        'https://events.thirvusoft.co.in/api/method/thirvu_event.custom.py.api.login',
+        '${dotenv.env['API_URL']}/api/method/g_elite_admin.g_elite_admin.Api.api_list.login',
         options: Options(
           headers: {'Content-Type': 'application/json'},
         ),
@@ -184,9 +191,12 @@ class _LoginState extends State<Login> {
           _result = false;
           value = response.data;
         });
+        print(value["full_name"]);
         await prefs.setString('token', value["token"]);
-        await prefs.setString('token', value["full_name"]);
-
+        await prefs.setString('full_name', value["full_name"]);
+        await prefs.setString('kottam', value["kottam"]);
+        print("lllllllllllllllllllllll");
+        print(prefs.getString('kottam'));
         Fluttertoast.showToast(
             msg: value["message"],
             toastLength: Toast.LENGTH_SHORT,

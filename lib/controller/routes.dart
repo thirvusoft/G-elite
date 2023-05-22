@@ -1,5 +1,7 @@
 import 'package:gelite/view/login.dart';
+import 'package:gelite/view/qr.dart';
 import 'package:gelite/view/signup.dart';
+import 'package:gelite/view/splashscreen.dart';
 import 'package:gelite/view/test.dart';
 import 'package:gelite/view/user_list.dart';
 import 'package:get/get.dart';
@@ -17,6 +19,8 @@ class Routes {
   static String screen5 = '/signup';
   static String screen6 = '/profile';
   static String screen7 = '/filepicker';
+  static String screen8 = '/qr';
+  static String splashscreen = '/SplashScreen';
 }
 
 /// Add this list variable into your GetMaterialApp as the value of getPages parameter.
@@ -38,7 +42,7 @@ final getPages = [
   ),
   GetPage(
     name: Routes.screen4,
-    page: () => const Userlist(),
+    page: () => Userlist(),
   ),
   GetPage(
     name: Routes.screen5,
@@ -51,5 +55,13 @@ final getPages = [
   GetPage(
     name: Routes.screen7,
     page: () => const MultipleFilepickerScreen(),
+  ),
+  GetPage(
+    name: Routes.screen8,
+    page: () => const qr(),
+  ),
+  GetPage(
+    name: Routes.splashscreen,
+    page: () => const SplashScreen(),
   ),
 ];
