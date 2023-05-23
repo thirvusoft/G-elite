@@ -44,18 +44,18 @@ class _SignupState extends State<Signup> {
         appBar: AppBar(
           toolbarHeight: 100,
           centerTitle: true,
-          leading: Padding(
-            padding: const EdgeInsets.only(top: 25),
-            child: IconButton(
-              icon: const Icon(
-                PhosphorIcons.caret_left,
-              ),
-              onPressed: () {
-                print(dotenv.env['API_URL']);
-                // Get.toNamed("/login");
-              },
-            ),
-          ),
+          // leading: Padding(
+          //   padding: const EdgeInsets.only(top: 25),
+          //   child: IconButton(
+          //     icon: const Icon(
+          //       PhosphorIcons.caret_left,
+          //     ),
+          //     onPressed: () {
+          //       print(dotenv.env['API_URL']);
+          //       // Get.toNamed("/login");
+          //     },
+          //   ),
+          // ),
           title: Padding(
             padding: const EdgeInsets.only(top: 25),
             child: Text(

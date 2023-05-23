@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:gelite/utils/colors.dart';
 import 'package:gelite/utils/helper.dart';
+import 'package:gelite/view/signup.dart';
 import 'package:gelite/view/user_list.dart';
 import 'package:get/get.dart';
 
 import '../controller/eventcontroller.dart';
 import '../controller/userlistcontroller.dart';
+import 'evencreation.dart';
 import 'home_page.dart';
 
 class LandingPageController extends GetxController {
@@ -14,31 +16,25 @@ class LandingPageController extends GetxController {
 
   void changeTabIndex(int index) {
     tabIndex.value = index;
-    if (tabIndex.value == 1) {
+    if (tabIndex.value == 2) {
       if (Get.isRegistered<UserController>()) {
         Get.find<UserController>().fetchEvents();
       } else {
         final UserController usercontroller = Get.put(UserController());
         usercontroller.fetchEvents();
       }
-    } else {
-      if (Get.isRegistered<Eventcontroller>()) {
-        Get.find<Eventcontroller>().fetchEvents();
-        result = false;
-      } else {
-        final Eventcontroller usercontroller = Get.put(Eventcontroller());
-        usercontroller.fetchEvents();
-      }
     }
   }
 }
 
-class LandingPage extends StatefulWidget {
+class LandingPage1 extends StatefulWidget {
+  const LandingPage1({super.key});
+
   @override
-  State<LandingPage> createState() => _LandingPageState();
+  State<LandingPage1> createState() => _LandingPage1State();
 }
 
-class _LandingPageState extends State<LandingPage> {
+class _LandingPage1State extends State<LandingPage1> {
   final TextStyle unselectedLabelStyle = TextStyle(
       color: Colors.white.withOpacity(0.5),
       fontWeight: FontWeight.w500,
@@ -67,11 +63,23 @@ class _LandingPageState extends State<LandingPage> {
                 icon: Container(
                   margin: const EdgeInsets.only(bottom: 7),
                   child: const Icon(
-                    PhosphorIcons.house,
+                    PhosphorIcons.calendar_plus,
                     size: 20.0,
                   ),
                 ),
-                label: 'Home',
+                label: 'Event',
+                backgroundColor: AppColors.primaryColor,
+              ),
+              BottomNavigationBarItem(
+                icon: Container(
+                  margin: const EdgeInsets.only(bottom: 7),
+                  child: Icon(
+                    PhosphorIcons.user_plus,
+                    size: 20.0,
+                    color: AppColors.primaryColor,
+                  ),
+                ),
+                label: 'Register',
                 backgroundColor: AppColors.primaryColor,
               ),
               BottomNavigationBarItem(
@@ -83,7 +91,7 @@ class _LandingPageState extends State<LandingPage> {
                     color: AppColors.primaryColor,
                   ),
                 ),
-                label: 'User',
+                label: 'User List',
                 backgroundColor: AppColors.primaryColor,
               ),
             ],
@@ -101,10 +109,7 @@ class _LandingPageState extends State<LandingPage> {
           buildBottomNavigationMenu(context, landingPageController),
       body: Obx(() => IndexedStack(
             index: landingPageController.tabIndex.value,
-            children: const [
-              Homepage(),
-              Userlist(),
-            ],
+            children: const [EventCreation(), Signup(), Userlist()],
           )),
     ));
   }

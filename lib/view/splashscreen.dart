@@ -33,6 +33,9 @@ class _SplashScreenState extends State<SplashScreen> {
     if (token.getString('token') == null) {
       timer =
           Timer(const Duration(seconds: 2), () => Get.offAllNamed("/login"));
+    } else if (token.getString('roll') == "super_admin") {
+      timer = Timer(
+          const Duration(seconds: 2), () => Get.offAllNamed("/landingPage1"));
     } else {
       timer = Timer(
           const Duration(seconds: 2), () => Get.offAllNamed("/LandingPage"));

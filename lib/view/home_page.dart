@@ -6,6 +6,7 @@ import 'package:gelite/utils/colors.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 import '../controller/eventcontroller.dart';
 
@@ -20,16 +21,26 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
   final Eventcontroller eventcontroller = Get.put(Eventcontroller());
   TabController? _tabController;
   late Timer timer;
-
+  var name = "";
+  var kottom = "";
   bool _result = true;
   @override
   void initState() {
     super.initState();
+    temp();
     _tabController = TabController(length: 2, vsync: this);
     timer = Timer(const Duration(seconds: 2), () {
       setState(() {
         _result = false;
       });
+    });
+  }
+
+  temp() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      name = prefs.getString('full_name').toString();
+      kottom = prefs.getString('kottam').toString();
     });
   }
 
@@ -88,7 +99,7 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                         child: Column(
                           children: [
                             Text(
-                              "Vignesh M",
+                              name,
                               style: GoogleFonts.nunitoSans(
                                 textStyle: TextStyle(
                                     color: AppColors.scaffoldBackgroundColor,
@@ -100,7 +111,7 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                               height: 10,
                             ),
                             Text(
-                              "Kootam - Pillar Kulam",
+                              "Kootam -$kottom",
                               style: GoogleFonts.nunitoSans(
                                 textStyle: TextStyle(
                                     color: AppColors.scaffoldBackgroundColor,

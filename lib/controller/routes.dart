@@ -1,3 +1,5 @@
+import 'package:gelite/view/bottomnavigation1.dart';
+import 'package:gelite/view/evencreation.dart';
 import 'package:gelite/view/login.dart';
 import 'package:gelite/view/qr.dart';
 import 'package:gelite/view/signup.dart';
@@ -21,6 +23,8 @@ class Routes {
   static String screen7 = '/filepicker';
   static String screen8 = '/qr';
   static String splashscreen = '/SplashScreen';
+  static String eventcreation = '/EventCreation';
+  static String landingPage1 = '/landingPage1';
 }
 
 /// Add this list variable into your GetMaterialApp as the value of getPages parameter.
@@ -33,35 +37,61 @@ final getPages = [
   GetPage(
     name: Routes.screen2,
     page: () => LandingPage(),
-    transition: Transition.leftToRightWithFade,
+    transition: Transition.fade,
     transitionDuration: const Duration(milliseconds: 500),
   ),
   GetPage(
     name: Routes.screen3,
     page: () => const Homepage(),
+    transition: Transition.leftToRightWithFade,
+    transitionDuration: const Duration(milliseconds: 500),
   ),
   GetPage(
     name: Routes.screen4,
     page: () => Userlist(),
+    transition: Transition.leftToRightWithFade,
+    transitionDuration: const Duration(milliseconds: 500),
   ),
   GetPage(
     name: Routes.screen5,
     page: () => const Signup(),
+    transition: Transition.leftToRightWithFade,
+    transitionDuration: const Duration(milliseconds: 500),
   ),
   GetPage(
     name: Routes.screen6,
     page: () => const Profile(),
+    transition: Transition.leftToRightWithFade,
+    transitionDuration: const Duration(milliseconds: 500),
   ),
   GetPage(
     name: Routes.screen7,
     page: () => const MultipleFilepickerScreen(),
+    transition: Transition.leftToRightWithFade,
+    transitionDuration: const Duration(milliseconds: 500),
   ),
   GetPage(
     name: Routes.screen8,
     page: () => const qr(),
+    transition: Transition.leftToRightWithFade,
+    transitionDuration: const Duration(milliseconds: 500),
   ),
   GetPage(
     name: Routes.splashscreen,
     page: () => const SplashScreen(),
+    transition: Transition.leftToRightWithFade,
+    transitionDuration: const Duration(milliseconds: 500),
+  ),
+  GetPage(
+    name: Routes.eventcreation,
+    page: () => const EventCreation(),
+    transition: Transition.leftToRightWithFade,
+    transitionDuration: const Duration(milliseconds: 500),
+  ),
+  GetPage(
+    name: Routes.landingPage1,
+    page: () => LandingPage1(),
+    transition: Transition.leftToRightWithFade,
+    transitionDuration: const Duration(milliseconds: 500),
   ),
 ];
