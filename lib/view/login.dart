@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
@@ -7,13 +6,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gelite/controller/koottamcontroller.dart';
 import 'package:gelite/utils/colors.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
 import '../utils/helper.dart';
+import '../widgets/button.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -102,6 +99,11 @@ class _LoginState extends State<Login> {
               const SizedBox(
                 height: 25,
               ),
+              // Elevatebutton(
+              //   formKey:_formKey,
+              //   name:"login",onPressed:(){
+
+              // }),
               SizedBox(
                 width: 343,
                 height: 59,
@@ -187,7 +189,7 @@ class _LoginState extends State<Login> {
         if (value["roll"] == "super_admin") {
           Get.offAllNamed("/landingPage1");
         } else {
-          Get.toNamed("/LandingPage");
+          Get.offAllNamed("/LandingPage");
         }
       }
     } catch (e) {

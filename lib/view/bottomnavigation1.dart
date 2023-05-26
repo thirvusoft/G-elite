@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:gelite/utils/colors.dart';
-import 'package:gelite/utils/helper.dart';
 import 'package:gelite/view/signup.dart';
 import 'package:gelite/view/user_list.dart';
 import 'package:get/get.dart';
-
-import '../controller/eventcontroller.dart';
 import '../controller/userlistcontroller.dart';
 import 'evencreation.dart';
-import 'home_page.dart';
 
 class LandingPageController extends GetxController {
   var tabIndex = 0.obs;
