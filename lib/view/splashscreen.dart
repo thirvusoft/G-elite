@@ -29,6 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future time() async {
     SharedPreferences token = await SharedPreferences.getInstance();
     print(token.getString("token"));
+    print(token.getString("roll"));
 
     if (token.getString('token') == null) {
       timer =
@@ -36,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
     } else if (token.getString('roll') == "super_admin") {
       timer = Timer(
           const Duration(seconds: 2), () => Get.offAllNamed("/landingPage1"));
-    } else {
+    } else if (token.getString('roll') == " ") {
       timer = Timer(
           const Duration(seconds: 2), () => Get.offAllNamed("/LandingPage"));
     }

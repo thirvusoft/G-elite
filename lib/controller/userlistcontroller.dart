@@ -7,6 +7,7 @@ import "package:shared_preferences/shared_preferences.dart";
 
 class UserController extends GetxController {
   var userlist = [].obs;
+  var isLoading = true.obs;
 
   @override
   void onInit() {
@@ -18,19 +19,18 @@ class UserController extends GetxController {
     await dotenv.load();
     final prefs = await SharedPreferences.getInstance();
 
-    print(dotenv.env['API_URL']);
     try {
       var response = await http.get(
         Uri.parse(
             "${dotenv.env['API_URL']}/api/method/g_elite_admin.g_elite_admin.Api.api_list.user_list?user=${prefs.getString('full_name')}"),
       );
       var eventsJson = jsonDecode(response.body)['user_list'] as List;
-      print(eventsJson);
+      isLoading.value = true;
       userlist.value = eventsJson.map((user) => User.fromJson(user)).toList();
-      userlist.refresh();
-      print(userlist.value);
+      await Future.delayed(const Duration(seconds: 2));
+      isLoading.value = false;
     } catch (e) {
-      print('Error fetching events: $e');
+      isLoading.value = false;
     }
   }
 }
