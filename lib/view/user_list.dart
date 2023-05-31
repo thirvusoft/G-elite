@@ -19,6 +19,7 @@ class Userlist extends StatefulWidget {
 
 class _UserlistState extends State<Userlist> {
   final UserController usercontroller = Get.put(UserController());
+
   late Timer timer;
   final temp = [];
 
@@ -26,13 +27,11 @@ class _UserlistState extends State<Userlist> {
   double textFieldOpacity = 0.0;
   bool _result = true;
   TextEditingController areaController = TextEditingController();
-  var sort;
+  var sort = "";
 
   @override
   void initState() {
     super.initState();
-
-    print("ppppprrrrrrrrrr");
   }
 
   @override
@@ -62,8 +61,8 @@ class _UserlistState extends State<Userlist> {
                   onChanged: (value) {
                     setState(() {
                       sort = value;
-                      areaController.text = value;
                     });
+                    usercontroller.fliter(value);
                   },
                   decoration: InputDecoration(
                     border: InputBorder.none,
@@ -143,26 +142,13 @@ class _UserlistState extends State<Userlist> {
             );
           } else {
             return ListView.builder(
-              itemCount: (areaController.text.isNotEmpty)
-                  ? temp.length
-                  : usercontroller.userlist.length,
+              itemCount: (sort.isEmpty)
+                  ? usercontroller.userlist.length
+                  : usercontroller.fliterlist.length,
               itemBuilder: (BuildContext context, int index) {
-                final user = usercontroller.userlist[index];
-                print("xxxxxxxxxx");
-                print(user);
-                if (areaController.text.isNotEmpty) {
-                  if (user.fullName.toLowerCase().contains(sort) ||
-                      user.mobileNuber.toLowerCase().contains(sort)) {
-                    print(user.fullName);
-                    var name = {};
-                    name["name"] = user.fullName;
-                    temp.add(name);
-                    print("check");
-                    print(temp);
-                    print(user);
-                    // print(sort);
-                  }
-                }
+                final user = (sort.isNotEmpty)
+                    ? usercontroller.fliterlist[index]
+                    : usercontroller.userlist[index];
 
                 return Padding(
                   padding: const EdgeInsets.only(left: 10, right: 10),
@@ -189,8 +175,8 @@ class _UserlistState extends State<Userlist> {
                           }
                         },
                       ),
-                      subtitle: Text(temp.toString()),
-                      // title: Text(user.fullName.toString()),
+                      subtitle: Text(user.mobileNuber.toString()),
+                      title: Text(user.fullName.toString()),
                     ),
                   ),
                 );
