@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import '../view/home_page.dart';
 import '../view/bottomnavigation.dart';
 import '../view/profile.dart';
+import '../view/userdetails.dart';
 
 class Routes {
   static String screen1 = '/login';
@@ -25,6 +26,7 @@ class Routes {
   static String splashscreen = '/SplashScreen';
   static String eventcreation = '/EventCreation';
   static String landingPage1 = '/landingPage1';
+  static String UserDetail = '/UserDetail';
 }
 
 /// Add this list variable into your GetMaterialApp as the value of getPages parameter.
@@ -91,6 +93,12 @@ final getPages = [
   GetPage(
     name: Routes.landingPage1,
     page: () => LandingPage1(),
+    transition: Transition.leftToRightWithFade,
+    transitionDuration: const Duration(milliseconds: 500),
+  ),
+  GetPage(
+    name: Routes.UserDetail,
+    page: () => UserDetail(),
     transition: Transition.leftToRightWithFade,
     transitionDuration: const Duration(milliseconds: 500),
   ),

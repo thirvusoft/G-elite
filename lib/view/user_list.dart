@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
+import '../controller/userdetailcontroller.dart';
 import '../controller/userlistcontroller.dart';
 import '../utils/colors.dart';
 
@@ -141,7 +141,7 @@ class _UserlistState extends State<Userlist> {
               ],
             );
           } else {
-            return ListView.builder(
+            return (ListView.builder(
               itemCount: (sort.isEmpty)
                   ? usercontroller.userlist.length
                   : usercontroller.fliterlist.length,
@@ -151,37 +151,36 @@ class _UserlistState extends State<Userlist> {
                     : usercontroller.userlist[index];
 
                 return Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        radius: 20,
-                        backgroundImage:
-                            NetworkImage(user.userImage.toString()),
-                      ),
-                      trailing: IconButton(
-                        icon: Icon(
-                          PhosphorIcons.phone_call,
-                          size: 20,
-                          color: AppColors.primaryColor,
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.toNamed('/UserDetail');
+                        Get.put(Userdetailscontroller());
+                        Get.find<Userdetailscontroller>()
+                            .fetchEvents(user.fullName.toString());
+                      },
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
                         ),
-                        onPressed: () async {
-                          var number = user.mobileNuber;
-                          if (number.length >= 10) {
-                            await FlutterPhoneDirectCaller.callNumber(number);
-                          }
-                        },
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            radius: 20,
+                            backgroundImage:
+                                NetworkImage(user.userImage.toString()),
+                          ),
+                          trailing: Icon(
+                            PhosphorIcons.caret_right_bold,
+                            size: 20,
+                            color: AppColors.primaryColor,
+                          ),
+                          subtitle: Text(user.mobileNuber.toString()),
+                          title: Text(user.fullName.toString()),
+                        ),
                       ),
-                      subtitle: Text(user.mobileNuber.toString()),
-                      title: Text(user.fullName.toString()),
-                    ),
-                  ),
-                );
+                    ));
               },
-            );
+            ));
           }
         },
       ),

@@ -151,6 +151,8 @@ class _LoginState extends State<Login> {
     await Future.delayed(const Duration(seconds: 2));
     final prefs = await SharedPreferences.getInstance();
     final dio = Dio();
+    await dotenv.load();
+
     try {
       final response = await dio.post(
         '${dotenv.env['API_URL']}/api/method/g_elite_admin.g_elite_admin.Api.api_list.login',

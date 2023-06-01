@@ -3,12 +3,8 @@ import "package:flutter/material.dart";
 import "package:flutter_dotenv/flutter_dotenv.dart";
 import "package:flutter_phosphor_icons/flutter_phosphor_icons.dart";
 import "package:gelite/controller/eventcontroller.dart";
-import "package:gelite/controller/userlistcontroller.dart";
-import "package:gelite/models/uselist.dart";
 import "package:gelite/utils/helper.dart";
 import "package:get/get.dart";
-import "package:get/get_navigation/src/snackbar/snackbar.dart";
-import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:http/http.dart' as http;
 import "package:get/state_manager.dart";
 import "package:shared_preferences/shared_preferences.dart";
@@ -21,7 +17,6 @@ class QRController extends GetxController {
 
   Future<void> attendance(name) async {
     await dotenv.load();
-    print("12212222121222221");
     try {
       final prefs = await SharedPreferences.getInstance();
       var response = await http.post(
@@ -32,7 +27,6 @@ class QRController extends GetxController {
           "Authorization": prefs.getString('token').toString(),
         },
       );
-      print(response.body);
       if (response.statusCode == 200) {
         eventcontroller.fetchEvents();
         eventcode = "";

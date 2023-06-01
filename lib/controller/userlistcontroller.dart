@@ -11,11 +11,11 @@ class UserController extends GetxController {
   var isLoading = true.obs;
   var eventsJson;
 
-  @override
-  void onInit() {
-    fetchEvents();
-    super.onInit();
-  }
+  // @override
+  // void onInit() {
+  //   fetchEvents();
+  //   super.onInit();
+  // }
 
   Future<void> fetchEvents() async {
     await dotenv.load();
