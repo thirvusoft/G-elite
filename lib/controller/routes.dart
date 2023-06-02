@@ -64,7 +64,7 @@ final getPages = [
     name: Routes.screen6,
     page: () => const Profile(),
     transition: Transition.leftToRightWithFade,
-    transitionDuration: const Duration(milliseconds: 500),
+    transitionDuration: const Duration(milliseconds: 200),
   ),
   GetPage(
     name: Routes.screen7,

@@ -25,57 +25,57 @@ class FilePickerController extends GetxController {
   }
 
   Future<bool> uploadFiles() async {
-  print(selectedFiles.runtimeType);
-  Dio dio = Dio();
-  List<int> j = [];
+    print(selectedFiles.runtimeType);
+    Dio dio = Dio();
+    List<int> j = [];
 
-  try {
-    for (int i = 0; i < selectedFiles.length; i++) {
-      String filePath = selectedFiles[i] as String;
+    try {
+      for (int i = 0; i < selectedFiles.length; i++) {
+        String filePath = selectedFiles[i] as String;
 
-      File file = File(filePath);
-      String filename = file.path.split("/").last;
+        File file = File(filePath);
+        String filename = file.path.split("/").last;
 
-      FormData formData = FormData.fromMap({
-        "file": await MultipartFile.fromFile(file.path, filename: filename),
-        "docname": "basheerahamed@oxo.in",
-        "doctype": 'User',
-        "attached_to_name": "basheerahamed",
-        "is_private": 0,
-        "folder": "Home/Attachments"
-      });
+        FormData formData = FormData.fromMap({
+          "file": await MultipartFile.fromFile(file.path, filename: filename),
+          "docname": "basheerahamed@oxo.in",
+          "doctype": 'User',
+          "attached_to_name": "basheerahamed",
+          "is_private": 0,
+          "folder": "Home/Attachments"
+        });
 
-      dio.options.headers["Authorization"] = "token d196e7d2efb5415:fb698c25127eb6a";
-      Response response = await dio.post(
-        "https://oxo.thirvusoft.co.in/api/method/upload_file",
-        data: formData,
-      );
+        dio.options.headers["Authorization"] =
+            "token d196e7d2efb5415:fb698c25127eb6a";
+        Response response = await dio.post(
+          "https://oxo.thirvusoft.co.in/api/method/upload_file",
+          data: formData,
+        );
 
-      if (response.statusCode == 200) {
-        print('File $i uploaded successfully');
-        j.add(i);
-        print(j);
-        print(j.length);
-        print(selectedFiles.length);
-        if (selectedFiles.length == j.length) {
-          return true; // All files uploaded successfully
+        if (response.statusCode == 200) {
+          print('File $i uploaded successfully');
+          j.add(i);
+          print(j);
+          print(j.length);
+          print(selectedFiles.length);
+          if (selectedFiles.length == j.length) {
+            return true; // All files uploaded successfully
+          }
+        } else {
+          // Handle error case
+          print('Failed to upload file $i');
         }
-      } else {
-        // Handle error case
-        print('Failed to upload file $i');
       }
+    } on DioError catch (e) {
+      if (e.response != null) {
+        print(e.response!.data);
+      } else {
+        print(e.message);
+      }
+    } catch (e) {
+      print(e.toString());
     }
-  } on DioError catch (e) {
-    if (e.response != null) {
-      print(e.response!.data);
-    } else {
-      print(e.message);
-    }
-  } catch (e) {
-    print(e.toString());
+
+    return false;
   }
-
-  return false; // Return false if not all files are uploaded successfully
-}
-
 }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:gelite/utils/helper.dart';
@@ -6,7 +8,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
+import '../controller/profilecontroller.dart';
 import '../utils/colors.dart';
+import '../widgets/popup.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -16,10 +20,15 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  final ProfileController profilecontroller = Get.put(ProfileController());
   bool _isHidden = true;
   final _profileKey = GlobalKey<FormState>();
   bool _result = false;
   String password = '';
+  String mobileNo = "";
+  String dob = "";
+  String bloodGroup = "";
+  String aadharNo = "";
   String confirmPassword = '';
   @override
   Widget build(BuildContext context) {
@@ -35,7 +44,7 @@ class _ProfileState extends State<Profile> {
                 PhosphorIcons.caret_left,
               ),
               onPressed: () {
-                Get.toNamed("/LandingPage");
+                Get.back();
               },
             ),
           ),
@@ -58,7 +67,7 @@ class _ProfileState extends State<Profile> {
             height: 25,
           ),
           SizedBox(
-            height: 150,
+            height: 125,
             child: Column(
                 // crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
@@ -106,220 +115,309 @@ class _ProfileState extends State<Profile> {
           Form(
               key: _profileKey,
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    TextFormField(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      controller: profileemailidController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter email address';
-                        }
-                        RegExp regex = RegExp(
-                            r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
-                        if (!regex.hasMatch(value)) {
-                          return 'Please enter a valid email address';
-                        }
+                  padding: const EdgeInsets.all(8.0),
+                  child: Obx(
+                    () => SizedBox(
+                      height: MediaQuery.of(context).size.height / 1.5,
+                      child: ListView.builder(
+                          itemCount: profilecontroller.profileDetails.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final profile =
+                                profilecontroller.profileDetails[index];
+                            mobileNo = profile.mobileNo;
+                            dob = profile.birthDate;
+                            bloodGroup = profile.bloodGroup;
+                            aadharNo = profile.aadharNo;
+                            return Column(
+                              children: [
+                                TextFormField(
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
+                                  controller: profileemailidController,
+                                  decoration: InputDecoration(
+                                    prefixIcon: const HeroIcon(
+                                      HeroIcons.envelope,
+                                      size: 20,
+                                    ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          width: 1,
+                                          color: AppColors.textcolour),
+                                    ),
+                                    labelText: profile.aadharNo.toString(),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                TextFormField(
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
+                                  controller: profilemobilnumberController,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter mobile number';
+                                    }
+                                    return null;
+                                  },
+                                  decoration: InputDecoration(
+                                    prefixIcon: const HeroIcon(
+                                      HeroIcons.phone,
+                                      size: 20,
+                                    ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          width: 1,
+                                          color: AppColors.textcolour),
+                                    ),
+                                    labelText: profile.mobileNo,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                TextFormField(
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
+                                  controller: profiledobController,
+                                  textInputAction: TextInputAction.next,
+                                  validator: (x) {
+                                    if (x!.isEmpty) {
+                                      return " Date can't be empty";
+                                    }
 
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        suffixIcon: const HeroIcon(
-                          HeroIcons.envelope,
-                          size: 20,
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.textcolour),
-                        ),
-                        labelText: "Email Address",
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    TextFormField(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      controller: profilemobilnumberController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter mobile number';
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        suffixIcon: const HeroIcon(
-                          HeroIcons.phone,
-                          size: 20,
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.textcolour),
-                        ),
-                        labelText: "Mobile Number",
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    TextFormField(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      controller: profiledobController,
-                      textInputAction: TextInputAction.next,
-                      validator: (x) {
-                        if (x!.isEmpty) {
-                          return " Date can't be empty";
-                        }
+                                    return null;
+                                  },
+                                  decoration: InputDecoration(
+                                    prefixIcon:
+                                        const Icon(PhosphorIcons.calendar),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          width: 1,
+                                          color: AppColors.textcolour),
+                                    ),
+                                    labelText: (profile.birthDate == " ")
+                                        ? "D.O.B"
+                                        : profile.birthDate,
+                                  ),
+                                  style: const TextStyle(),
+                                  readOnly: true,
+                                  onTap: () async {
+                                    var date = await showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(1950),
+                                      lastDate: DateTime(2101),
+                                      helpText: 'Select a date',
+                                      cancelText: 'Cancel',
+                                      confirmText: 'Ok',
+                                    );
+                                    profiledobController.text =
+                                        date.toString().substring(0, 10);
+                                  },
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                TextFormField(
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
+                                  controller: profilebloodController,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter email address';
+                                    }
 
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        suffixIcon: const Icon(PhosphorIcons.calendar),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.textcolour),
-                        ),
-                        labelText: "D.O.B",
-                      ),
-                      style: const TextStyle(),
-                      readOnly: true,
-                      onTap: () async {
-                        var date = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(1950),
-                          lastDate: DateTime(2101),
-                          helpText: 'Select a date',
-                          cancelText: 'Cancel',
-                          confirmText: 'Ok',
-                        );
-                        profiledobController.text =
-                            date.toString().substring(0, 10);
-                      },
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    TextFormField(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      controller: profilebloodController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter email address';
-                        }
+                                    return null;
+                                  },
+                                  decoration: InputDecoration(
+                                    prefixIcon: const HeroIcon(
+                                      HeroIcons.envelope,
+                                      size: 20,
+                                    ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          width: 1,
+                                          color: AppColors.textcolour),
+                                    ),
+                                    labelText: (profile.bloodGroup == "")
+                                        ? "D.O.B"
+                                        : "Blood Group",
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                TextFormField(
+                                  obscureText: _isHidden,
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
+                                  controller: profilepasswordController,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      password = value;
+                                    });
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter password';
+                                    }
+                                    return null;
+                                  },
+                                  decoration: InputDecoration(
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          width: 1,
+                                          color: AppColors.textcolour),
+                                    ),
+                                    labelText: "New Password",
+                                    prefixIcon: IconButton(
+                                      icon: Icon((_isHidden)
+                                          ? PhosphorIcons.eye
+                                          : PhosphorIcons.eye_slash),
+                                      onPressed: () {
+                                        setState(() {
+                                          _isHidden = !_isHidden;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                TextFormField(
+                                  obscureText: _isHidden,
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
+                                  controller: profileconfirmController,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please re-enter password';
+                                    }
+                                    if (value != password) {
+                                      return 'Passwords do not match';
+                                    }
+                                    return null;
+                                  },
+                                  decoration: InputDecoration(
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          width: 1,
+                                          color: AppColors.textcolour),
+                                    ),
+                                    prefixIcon: IconButton(
+                                      icon: Icon((_isHidden)
+                                          ? PhosphorIcons.eye
+                                          : PhosphorIcons.eye_slash),
+                                      onPressed: () {
+                                        setState(() {
+                                          _isHidden = !_isHidden;
+                                        });
+                                      },
+                                    ),
+                                    labelText: "Confirm Password",
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                GestureDetector(
+                                    onTap: () {
+                                      print("dddddd");
+                                      showPopup(context);
 
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        suffixIcon: const HeroIcon(
-                          HeroIcons.envelope,
-                          size: 20,
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.textcolour),
-                        ),
-                        labelText: "Blood Group",
-                      ),
+                                      // showPopup(context);
+                                    },
+                                    child: ListTile(
+                                      leading: CircleAvatar(
+                                          backgroundColor:
+                                              AppColors.backgroundColor,
+                                          child: Icon(
+                                            PhosphorIcons.sign_out_light,
+                                            color: AppColors.iconcolor,
+                                          )),
+                                      title: Text(
+                                        '  Logout  ',
+                                        style: GoogleFonts.nunitoSans(
+                                          textStyle: TextStyle(
+                                              color: AppColors.iconcolor,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18),
+                                        ),
+                                      ),
+                                    )),
+                                const Divider(
+                                  thickness: 1,
+                                  color: Color(0xff737373),
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                SizedBox(
+                                  width: 343,
+                                  height: 59,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      backgroundColor: AppColors.primaryColor,
+                                      textStyle: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 17,
+                                          letterSpacing: 1.0,
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                    onPressed: () {
+                                      profilecontroller
+                                          .profileUpdation(jsonEncode({
+                                        "user": "Vignesh M",
+                                        "birth_date":
+                                            profiledobController.text.isEmpty
+                                                ? dob
+                                                : profiledobController.text,
+                                        "mobile_no":
+                                            profilemobilnumberController
+                                                    .text.isEmpty
+                                                ? mobileNo
+                                                : profilemobilnumberController
+                                                    .text,
+                                        "blood_group":
+                                            profilebloodController.text.isEmpty
+                                                ? bloodGroup
+                                                : profilebloodController.text,
+                                        "password": "admin@123",
+                                        "aadhar_no": profileemailidController
+                                                .text.isEmpty
+                                            ? aadharNo
+                                            : profileemailidController.text
+                                      }));
+                                    },
+                                    child: (_result)
+                                        ? LoadingAnimationWidget.discreteCircle(
+                                            color: Colors.white,
+                                            size: 25,
+                                            secondRingColor: Colors.white,
+                                          )
+                                        : const Text('SAVE'),
+                                  ),
+                                ),
+                              ],
+                            );
+                          }),
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    TextFormField(
-                      obscureText: _isHidden,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      controller: profilepasswordController,
-                      onChanged: (value) {
-                        setState(() {
-                          password = value;
-                        });
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter password';
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.textcolour),
-                        ),
-                        labelText: "New Password",
-                        suffixIcon: IconButton(
-                          icon: Icon((_isHidden)
-                              ? PhosphorIcons.eye
-                              : PhosphorIcons.eye_slash),
-                          onPressed: () {
-                            setState(() {
-                              _isHidden = !_isHidden;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    TextFormField(
-                      obscureText: _isHidden,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      controller: profileconfirmController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please re-enter password';
-                        }
-                        if (value != password) {
-                          return 'Passwords do not match';
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(width: 1, color: AppColors.textcolour),
-                        ),
-                        labelText: "Confirm Password",
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    SizedBox(
-                      width: 343,
-                      height: 59,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(12), // <-- Radius
-                          ),
-                          backgroundColor: AppColors.primaryColor,
-                          textStyle: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 17,
-                              letterSpacing: 1.0,
-                              fontWeight: FontWeight.w700),
-                        ),
-                        onPressed: () {
-                          if (_profileKey.currentState!.validate()) {
-                            // Get.toNamed("screen2");
-                          }
-                        },
-                        child: (_result)
-                            ? LoadingAnimationWidget.discreteCircle(
-                                color: Colors.white,
-                                size: 25,
-                                secondRingColor: Colors.white,
-                              )
-                            : const Text('SAVE'),
-                      ),
-                    ),
-                  ],
-                ),
-              ))
+                  )))
         ]));
+  }
+
+  void showPopup(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return PopupWidget();
+      },
+    );
   }
 
   void showMyModalBottomSheet(BuildContext context) {
@@ -395,7 +493,9 @@ class _ProfileState extends State<Profile> {
                                 size: 25,
                                 color: AppColors.iconcolor,
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                print(profilecontroller.profileDetails);
+                              },
                             ),
                           ),
                           Text(
