@@ -25,7 +25,6 @@ class FilePickerController extends GetxController {
   }
 
   Future<bool> uploadFiles() async {
-    print(selectedFiles.runtimeType);
     Dio dio = Dio();
     List<int> j = [];
 

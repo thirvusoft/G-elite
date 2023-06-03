@@ -48,7 +48,7 @@ class _MultipleFilepickerScreenState extends State<MultipleFilepickerScreen> {
                   letterSpacing: .5,
                   fontWeight: FontWeight.bold,
                   fontSize: 20),
-            ),
+            ),  
           ),
         ),
       ),
