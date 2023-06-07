@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
+import '../controller/userdetailcontroller.dart';
 import '../controller/userlistcontroller.dart';
 import '../utils/colors.dart';
 
@@ -19,6 +19,7 @@ class Userlist extends StatefulWidget {
 
 class _UserlistState extends State<Userlist> {
   final UserController usercontroller = Get.put(UserController());
+
   late Timer timer;
   final temp = [];
 
@@ -26,13 +27,11 @@ class _UserlistState extends State<Userlist> {
   double textFieldOpacity = 0.0;
   bool _result = true;
   TextEditingController areaController = TextEditingController();
-  var sort;
+  var sort = "";
 
   @override
   void initState() {
     super.initState();
-
-    print("ppppprrrrrrrrrr");
   }
 
   @override
@@ -62,8 +61,8 @@ class _UserlistState extends State<Userlist> {
                   onChanged: (value) {
                     setState(() {
                       sort = value;
-                      areaController.text = value;
                     });
+                    usercontroller.fliter(value);
                   },
                   decoration: InputDecoration(
                     border: InputBorder.none,
@@ -142,60 +141,46 @@ class _UserlistState extends State<Userlist> {
               ],
             );
           } else {
-            return ListView.builder(
-              itemCount: (areaController.text.isNotEmpty)
-                  ? temp.length
-                  : usercontroller.userlist.length,
+            return (ListView.builder(
+              itemCount: (sort.isEmpty)
+                  ? usercontroller.userlist.length
+                  : usercontroller.fliterlist.length,
               itemBuilder: (BuildContext context, int index) {
-                final user = usercontroller.userlist[index];
-                print("xxxxxxxxxx");
-                print(user);
-                if (areaController.text.isNotEmpty) {
-                  if (user.fullName.toLowerCase().contains(sort) ||
-                      user.mobileNuber.toLowerCase().contains(sort)) {
-                    print(user.fullName);
-                    var name = {};
-                    name["name"] = user.fullName;
-                    temp.add(name);
-                    print("check");
-                    print(temp);
-                    print(user);
-                    // print(sort);
-                  }
-                }
+                final user = (sort.isNotEmpty)
+                    ? usercontroller.fliterlist[index]
+                    : usercontroller.userlist[index];
 
                 return Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        radius: 20,
-                        backgroundImage:
-                            NetworkImage(user.userImage.toString()),
-                      ),
-                      trailing: IconButton(
-                        icon: Icon(
-                          PhosphorIcons.phone_call,
-                          size: 20,
-                          color: AppColors.primaryColor,
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.toNamed('/UserDetail');
+                        Get.put(Userdetailscontroller());
+                        Get.find<Userdetailscontroller>()
+                            .fetchEvents(user.fullName.toString());
+                      },
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
                         ),
-                        onPressed: () async {
-                          var number = user.mobileNuber;
-                          if (number.length >= 10) {
-                            await FlutterPhoneDirectCaller.callNumber(number);
-                          }
-                        },
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            radius: 20,
+                            backgroundImage:
+                                NetworkImage(user.userImage.toString()),
+                          ),
+                          trailing: Icon(
+                            PhosphorIcons.caret_right_bold,
+                            size: 20,
+                            color: AppColors.primaryColor,
+                          ),
+                          subtitle: Text(user.mobileNuber.toString()),
+                          title: Text(user.fullName.toString()),
+                        ),
                       ),
-                      subtitle: Text(temp.toString()),
-                      // title: Text(user.fullName.toString()),
-                    ),
-                  ),
-                );
+                    ));
               },
-            );
+            ));
           }
         },
       ),
