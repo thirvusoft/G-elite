@@ -7,14 +7,8 @@ import "../models/userdetails.dart";
 
 class Userdetailscontroller extends GetxController {
   var userDetail = [].obs;
-  // @override
-  // void onInit() {
-  //   fetchEvents();
-  //   super.onInit();
-  // }
 
   Future<void> fetchEvents(user) async {
-    print("hvhvhvhvhvhhvvhh");
     print(user);
     try {
       final prefs = await SharedPreferences.getInstance();

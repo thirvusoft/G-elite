@@ -48,7 +48,7 @@ class _MultipleFilepickerScreenState extends State<MultipleFilepickerScreen> {
                   letterSpacing: .5,
                   fontWeight: FontWeight.bold,
                   fontSize: 20),
-            ),
+            ),  
           ),
         ),
       ),
@@ -169,7 +169,7 @@ class _MultipleFilepickerScreenState extends State<MultipleFilepickerScreen> {
                                   // height: 20,
                                   child: ClipRRect(
                                       borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
+                                          const BorderRadius.all(Radius.circular(10)),
                                       child: LinearProgressIndicator(
                                         backgroundColor:
                                             const Color(0xffe8effc),

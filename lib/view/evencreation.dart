@@ -8,11 +8,11 @@ import 'package:gelite/utils/helper.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:heroicons/heroicons.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:searchfield/searchfield.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/colors.dart';
+import '../widgets/popup.dart';
 
 class EventCreation extends StatefulWidget {
   const EventCreation({super.key});
@@ -45,6 +45,17 @@ class _EventCreationState extends State<EventCreation> {
           //     },
           //   ),
           // ),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(
+                PhosphorIcons.sign_out,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                showPopup(context);
+              },
+            )
+          ],
           title: Padding(
             padding: const EdgeInsets.only(top: 25),
             child: Text(
@@ -346,5 +357,14 @@ class _EventCreationState extends State<EventCreation> {
             ),
           ),
         ));
+  }
+
+  void showPopup(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return PopupWidget();
+      },
+    );
   }
 }

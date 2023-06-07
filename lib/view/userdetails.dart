@@ -5,6 +5,7 @@ import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../controller/userdetailcontroller.dart';
 import '../utils/colors.dart';
@@ -58,6 +59,14 @@ class UserDetail extends StatelessWidget {
                               .map(
                                 (user) => IconButton(
                                   onPressed: () async {
+                                    // const uri =
+                                    //     'mailto:test@example.org?subject=Greetings&body=Hello%20World';
+                                    // if (await canLaunch(uri)) {
+                                    //   await launch(uri);
+                                    // } else {
+                                    //   throw 'Could not launch $uri';
+                                    // }
+
                                     if (user.mobileNo.length >= 10) {
                                       await FlutterPhoneDirectCaller.callNumber(
                                           user.mobileNo);
@@ -175,18 +184,29 @@ class UserDetail extends StatelessWidget {
                               final user = eventcontroller.userDetail[index];
                               return Column(
                                 children: [
-                                  ListTile(
-                                    leading: CircleAvatar(
-                                        backgroundColor:
-                                            AppColors.backgroundColor,
-                                        child: Icon(
-                                          PhosphorIcons.at,
-                                          color: AppColors.iconcolor,
-                                        )),
-                                    title: Text(
-                                      'Email: ${(user.emailID == "") ? "-----" : user.emailID}',
-                                    ),
-                                  ),
+                                  GestureDetector(
+                                      onTap: () async {
+                                        var id = user.emailID;
+                                        var uri =
+                                            'mailto:$id?subject=Greetings&body=Hello';
+                                        if (await canLaunch(uri)) {
+                                          await launch(uri);
+                                        } else {
+                                          throw 'Could not launch $uri';
+                                        }
+                                      },
+                                      child: ListTile(
+                                        leading: CircleAvatar(
+                                            backgroundColor:
+                                                AppColors.backgroundColor,
+                                            child: Icon(
+                                              PhosphorIcons.at,
+                                              color: AppColors.iconcolor,
+                                            )),
+                                        title: Text(
+                                          'Email: ${(user.emailID == "") ? "-----" : user.emailID}',
+                                        ),
+                                      )),
                                   const Divider(),
                                   ListTile(
                                     leading: CircleAvatar(
