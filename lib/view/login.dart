@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -36,6 +37,62 @@ class _LoginState extends State<Login> {
           key: _formKey,
           child: Column(
             children: [
+              CarouselSlider.builder(
+                itemCount: 15,
+                itemBuilder:
+                    (BuildContext context, int itemIndex, int pageViewIndex) =>
+                        Banner(
+                  message: "20% off !!",
+                  location: BannerLocation.bottomStart,
+                  color: Colors.red,
+                  child: Container(
+                    color: Colors.green[100],
+                    height: 200,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
+                      child: Column(
+                        children: <Widget>[
+                          Image.network(
+                              'https://media.geeksforgeeks.org/wp-content/cdn-uploads/20190806131525/forkPython.jpg'),
+                          const SizedBox(height: 10),
+                          const Text(
+                            'GeeksforGeeks',
+                            style: TextStyle(
+                                color: Colors.green,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          const Text(
+                            'Fork Python Course',
+                            style: TextStyle(
+                                color: Colors.green,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                options: CarouselOptions(
+                  height: 250,
+                  aspectRatio: 16 / 9,
+                  viewportFraction: 0.8,
+                  initialPage: 0,
+                  enableInfiniteScroll: true,
+                  reverse: false,
+                  autoPlay: true,
+                  autoPlayInterval: const Duration(seconds: 3),
+                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enlargeCenterPage: true,
+                  enlargeFactor: 0.3,
+                  scrollDirection: Axis.horizontal,
+                ),
+              ),
               Center(
                 child: Image.asset(
                   'assets/logo.png',
