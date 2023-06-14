@@ -7,13 +7,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gelite/controller/koottamcontroller.dart';
 import 'package:gelite/utils/colors.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../utils/helper.dart';
-import '../widgets/button.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -260,6 +257,7 @@ class _LoginState extends State<Login> {
         await prefs.setString('full_name', value["full_name"]);
         await prefs.setString('kottam', value["kottam"]);
         await prefs.setString('roll', value["roll"]);
+        await prefs.setString('doc_name', value["doc_name"]);
         if (value["roll"] == "super_admin") {
           Get.offAllNamed("/landingPage1");
         } else {

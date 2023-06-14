@@ -9,6 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../controller/userdetailcontroller.dart';
 import '../utils/colors.dart';
+import '../widgets/bottomsheet.dart';
 
 class UserDetail extends StatelessWidget {
   final Userdetailscontroller eventcontroller =
@@ -59,6 +60,11 @@ class UserDetail extends StatelessWidget {
                               .map(
                                 (user) => IconButton(
                                   onPressed: () async {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          Bottomsheet(),
+                                    );
                                     // const uri =
                                     //     'mailto:test@example.org?subject=Greetings&body=Hello%20World';
                                     // if (await canLaunch(uri)) {
@@ -67,10 +73,10 @@ class UserDetail extends StatelessWidget {
                                     //   throw 'Could not launch $uri';
                                     // }
 
-                                    if (user.mobileNo.length >= 10) {
-                                      await FlutterPhoneDirectCaller.callNumber(
-                                          user.mobileNo);
-                                    }
+                                    // if (user.mobileNo.length >= 10) {
+                                    //   await FlutterPhoneDirectCaller.callNumber(
+                                    //       user.mobileNo);
+                                    // }
                                   },
                                   icon: const Icon(
                                     PhosphorIcons.phone_outgoing,

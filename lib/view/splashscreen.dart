@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:gelite/utils/colors.dart';
 import 'package:get/get.dart';
@@ -65,7 +63,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   ),
                   children: [
                     const TextSpan(
-                      text: 'G-',
+                      text: "G -",
                       style: TextStyle(
                         fontWeight: FontWeight.w800,
                       ),

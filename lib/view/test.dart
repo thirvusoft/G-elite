@@ -34,7 +34,7 @@ class _MultipleFilepickerScreenState extends State<MultipleFilepickerScreen> {
               PhosphorIcons.caret_left,
             ),
             onPressed: () {
-              Get.toNamed("/Homepage");
+              Get.back();
             },
           ),
         ),
@@ -48,7 +48,7 @@ class _MultipleFilepickerScreenState extends State<MultipleFilepickerScreen> {
                   letterSpacing: .5,
                   fontWeight: FontWeight.bold,
                   fontSize: 20),
-            ),  
+            ),
           ),
         ),
       ),
@@ -89,13 +89,13 @@ class _MultipleFilepickerScreenState extends State<MultipleFilepickerScreen> {
                               const SizedBox(
                                 height: 25,
                               ),
-                              const Icon(
+                              Icon(
                                 PhosphorIcons.cloud_arrow_up_light,
-                                color: Color(0xFF2B3467),
+                                color: AppColors.iconcolor,
                                 size: 49,
                               ),
                               const SizedBox(
-                                height: 25,
+                                height: 20,
                               ),
                               Text(
                                 "Drag & drop files ",
@@ -125,16 +125,16 @@ class _MultipleFilepickerScreenState extends State<MultipleFilepickerScreen> {
             const SizedBox(
               height: 15,
             ),
-            Text(
-              "Uploaded",
-              style: GoogleFonts.mulish(
-                textStyle: const TextStyle(
-                    color: Colors.black, letterSpacing: .1, fontSize: 15),
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
+            // Text(
+            //   "Uploaded",
+            //   style: GoogleFonts.mulish(
+            //     textStyle: const TextStyle(
+            //         color: Colors.black, letterSpacing: .1, fontSize: 15),
+            //   ),
+            // ),
+            // const SizedBox(
+            //   height: 10,
+            // ),
             Obx(
               () => Expanded(
                 child: ListView.builder(
@@ -168,8 +168,8 @@ class _MultipleFilepickerScreenState extends State<MultipleFilepickerScreen> {
                                   width: 325,
                                   // height: 20,
                                   child: ClipRRect(
-                                      borderRadius:
-                                          const BorderRadius.all(Radius.circular(10)),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(10)),
                                       child: LinearProgressIndicator(
                                         backgroundColor:
                                             const Color(0xffe8effc),
@@ -219,6 +219,8 @@ class _MultipleFilepickerScreenState extends State<MultipleFilepickerScreen> {
                   bool allFilesUploaded = await filepi.uploadFiles();
                   if (allFilesUploaded) {
                     setState(() {
+                      print(allFilesUploaded);
+                      print("gfgfgfgfgfgfgffg");
                       upload = false;
                     });
                   }
