@@ -62,8 +62,14 @@ class UserDetail extends StatelessWidget {
                                   onPressed: () async {
                                     showModalBottomSheet(
                                       context: context,
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.vertical(
+                                          top: Radius.circular(25.0),
+                                        ),
+                                      ),
+                                      isScrollControlled: true,
                                       builder: (BuildContext context) =>
-                                          Bottomsheet(),
+                                          Bottomsheet(fullName: user.emailID),
                                     );
                                     // const uri =
                                     //     'mailto:test@example.org?subject=Greetings&body=Hello%20World';
