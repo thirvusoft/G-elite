@@ -9,10 +9,8 @@ class Userdetailscontroller extends GetxController {
   var userDetail = [].obs;
 
   Future<void> fetchEvents(user) async {
-    print(user);
     try {
       final prefs = await SharedPreferences.getInstance();
-      print(prefs.getString('token').toString());
 
       await dotenv.load();
       var response = await http.get(
@@ -24,6 +22,30 @@ class Userdetailscontroller extends GetxController {
         },
       );
       print(response.statusCode);
+      var eventsJson = jsonDecode(response.body)['user_details'] as List;
+      print(eventsJson);
+      userDetail.value =
+          eventsJson.map((details) => UserDetails.fromJson(details)).toList();
+    } catch (e) {
+      print('Error fetching events: $e');
+    }
+  }
+
+  Future<void> callNotifi(data) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+
+      await dotenv.load();
+      var response = await http.post(
+        Uri.parse(
+          "${dotenv.env['API_URL']}/api/method/g_elite_admin.g_elite_admin.Api.api_list.call_notification",
+        ),
+        body: {'data': data},
+        headers: {
+          "Authorization": prefs.getString('token').toString(),
+        },
+      );
+
       var eventsJson = jsonDecode(response.body)['user_details'] as List;
       print(eventsJson);
       userDetail.value =

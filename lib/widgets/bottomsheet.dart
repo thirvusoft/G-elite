@@ -63,6 +63,7 @@ class Bottomsheet extends StatelessWidget {
             ),
             Elevatebutton(
               name: 'Send',
+              value: [],
               onPressed: () {},
             )
           ],
