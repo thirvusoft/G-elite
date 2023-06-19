@@ -7,8 +7,6 @@ import 'package:gelite/view/splashscreen.dart';
 import 'package:gelite/view/test.dart';
 import 'package:gelite/view/user_list.dart';
 import 'package:get/get.dart';
-import 'package:flutter/material.dart';
-
 import '../view/home_page.dart';
 import '../view/bottomnavigation.dart';
 import '../view/profile.dart';

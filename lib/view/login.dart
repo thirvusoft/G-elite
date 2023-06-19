@@ -7,11 +7,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gelite/controller/koottamcontroller.dart';
 import 'package:gelite/utils/colors.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../utils/helper.dart';
-import '../widgets/button.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -29,179 +28,192 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: AppColors.secondaryColor,
         body: SingleChildScrollView(
             child: SafeArea(
                 child: Padding(
-      padding: const EdgeInsets.only(left: 10, right: 10),
-      child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              CarouselSlider.builder(
-                itemCount: 15,
-                itemBuilder:
-                    (BuildContext context, int itemIndex, int pageViewIndex) =>
+          padding: const EdgeInsets.only(left: 10, right: 10),
+          child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  CarouselSlider.builder(
+                    itemCount: 15,
+                    itemBuilder: (BuildContext context, int itemIndex,
+                            int pageViewIndex) =>
                         Banner(
-                  message: "20% off !!",
-                  location: BannerLocation.bottomStart,
-                  color: Colors.red,
-                  child: Container(
-                    color: Colors.green[100],
-                    height: 200,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
-                      child: Column(
-                        children: <Widget>[
-                          Image.network(
-                              'https://media.geeksforgeeks.org/wp-content/cdn-uploads/20190806131525/forkPython.jpg'),
-                          const SizedBox(height: 10),
-                          const Text(
-                            'GeeksforGeeks',
-                            style: TextStyle(
-                                color: Colors.green,
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold),
+                      message: "20% off !!",
+                      location: BannerLocation.topStart,
+                      color: Colors.red,
+                      child: Container(
+                        color: Colors.white,
+                        height: 220,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
+                          child: Column(
+                            children: <Widget>[
+                              Image.network(
+                                  'https://media.geeksforgeeks.org/wp-content/cdn-uploads/20190806131525/forkPython.jpg'),
+                              const SizedBox(height: 5),
+                              const Text(
+                                'GeeksforGeeks',
+                                style: TextStyle(
+                                    color: Colors.green,
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const Text(
+                                'Fork Python Course',
+                                style: TextStyle(
+                                    color: Colors.green,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
                           ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          const Text(
-                            'Fork Python Course',
-                            style: TextStyle(
-                                color: Colors.green,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
+                        ),
+                      ),
+                    ),
+                    options: CarouselOptions(
+                      height: 230,
+                      aspectRatio: 16 / 9,
+                      viewportFraction: 0.8,
+                      initialPage: 0,
+                      enableInfiniteScroll: true,
+                      reverse: false,
+                      autoPlay: true,
+                      autoPlayInterval: const Duration(seconds: 5),
+                      autoPlayAnimationDuration:
+                          const Duration(milliseconds: 1000),
+                      autoPlayCurve: Curves.fastOutSlowIn,
+                      enlargeCenterPage: true,
+                      enlargeFactor: 0.3,
+                      scrollDirection: Axis.horizontal,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  CircleAvatar(
+                    radius: 60,
+                    backgroundColor: Colors.white.withOpacity(0.1),
+                    backgroundImage: const AssetImage(
+                      'assets/logo.png',
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  Text("Login into G-elite",
+                      textAlign: TextAlign.left,
+                      style: GoogleFonts.poppins(
+                        textStyle: TextStyle(
+                          color: AppColors.primaryColor,
+                          fontSize: 20,
+                        ),
+                      )),
+                  // Center(
+                  //   child: Image.asset(
+                  //     'assets/logo.png',
+                  //     height: 250,
+                  //     width: 250,
+                  //   ),
+                  // ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  TextFormField(
+                    maxLength: 10,
+                    keyboardType: TextInputType.phone,
+                    controller: mobilerController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter mobile number';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(width: 1, color: AppColors.textcolour),
+                      ),
+                      labelText: "Mobile Number",
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  TextFormField(
+                    controller: passController,
+                    obscureText: _isHidden,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter password';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(width: 1, color: AppColors.textcolour),
+                      ),
+                      labelText: "Password",
+                      suffixIcon: IconButton(
+                        icon: Icon((_isHidden)
+                            ? PhosphorIcons.eye
+                            : PhosphorIcons.eye_slash),
+                        onPressed: () {
+                          setState(() {
+                            _isHidden = !_isHidden;
+                          });
+                        },
                       ),
                     ),
                   ),
-                ),
-                options: CarouselOptions(
-                  height: 250,
-                  aspectRatio: 16 / 9,
-                  viewportFraction: 0.8,
-                  initialPage: 0,
-                  enableInfiniteScroll: true,
-                  reverse: false,
-                  autoPlay: true,
-                  autoPlayInterval: const Duration(seconds: 3),
-                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  enlargeCenterPage: true,
-                  enlargeFactor: 0.3,
-                  scrollDirection: Axis.horizontal,
-                ),
-              ),
-              Center(
-                child: Image.asset(
-                  'assets/logo.png',
-                  height: 400,
-                  width: 310.45,
-                ),
-              ),
-              TextFormField(
-                maxLength: 10,
-                keyboardType: TextInputType.phone,
-                controller: mobilerController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter mobile number';
-                  }
-                  return null;
-                },
-                decoration: InputDecoration(
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(width: 1, color: AppColors.textcolour),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 200, top: 7),
+                    child: GestureDetector(
+                        onTap: (() {}), child: const Text("Forget password ?")),
                   ),
-                  labelText: "Mobile Number",
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              TextFormField(
-                controller: passController,
-                obscureText: _isHidden,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter password';
-                  }
-                  return null;
-                },
-                decoration: InputDecoration(
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(width: 1, color: AppColors.textcolour),
+                  const SizedBox(
+                    height: 25,
                   ),
-                  labelText: "Password",
-                  suffixIcon: IconButton(
-                    icon: Icon((_isHidden)
-                        ? PhosphorIcons.eye
-                        : PhosphorIcons.eye_slash),
-                    onPressed: () {
-                      setState(() {
-                        _isHidden = !_isHidden;
-                      });
-                    },
+                  SizedBox(
+                    width: 343,
+                    height: 59,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primaryColor,
+                        textStyle: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 17,
+                            letterSpacing: 1.0,
+                            fontWeight: FontWeight.w700),
+                      ),
+                      onPressed: () async {
+                        print(kottamcontroller.kottom.value);
+                        if (_formKey.currentState!.validate()) {
+                          setState(() {
+                            _result = true;
+                          });
+                          login(mobilerController.text, passController.text);
+                        }
+                      },
+                      child: (_result)
+                          ? LoadingAnimationWidget.discreteCircle(
+                              color: Colors.white,
+                              size: 25,
+                              secondRingColor: Colors.white,
+                            )
+                          : const Text('LOGIN'),
+                    ),
                   ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 200, top: 7),
-                child: GestureDetector(
-                    onTap: (() {}), child: const Text("Forget password ?")),
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              // Elevatebutton(
-              //   formKey:_formKey,
-              //   name:"login",onPressed:(){
-
-              // }),
-              SizedBox(
-                width: 343,
-                height: 59,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primaryColor,
-                    textStyle: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 17,
-                        letterSpacing: 1.0,
-                        fontWeight: FontWeight.w700),
+                  const SizedBox(
+                    height: 20,
                   ),
-                  onPressed: () async {
-                    // const number = '08592119XXXX'; //set the number here
-                    // bool? res =
-                    //     await FlutterPhoneDirectCaller.callNumber(number);
-
-                    print(kottamcontroller.kottom.value);
-                    if (_formKey.currentState!.validate()) {
-                      // Get.toNamed("screen2");
-                      setState(() {
-                        _result = true;
-                      });
-                      login(mobilerController.text, passController.text);
-                    }
-                  },
-                  child: (_result)
-                      ? LoadingAnimationWidget.discreteCircle(
-                          color: Colors.white,
-                          size: 25,
-                          secondRingColor: Colors.white,
-                        )
-                      : const Text('LOGIN'),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-            ],
-          )),
-    ))));
+                ],
+              )),
+        ))));
   }
 
   Future login(String mobilenumber, String phone) async {
@@ -245,6 +257,7 @@ class _LoginState extends State<Login> {
         await prefs.setString('full_name', value["full_name"]);
         await prefs.setString('kottam', value["kottam"]);
         await prefs.setString('roll', value["roll"]);
+        await prefs.setString('doc_name', value["doc_name"]);
         if (value["roll"] == "super_admin") {
           Get.offAllNamed("/landingPage1");
         } else {
