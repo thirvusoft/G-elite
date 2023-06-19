@@ -69,7 +69,7 @@ class UserDetail extends StatelessWidget {
                                       ),
                                       isScrollControlled: true,
                                       builder: (BuildContext context) =>
-                                          Bottomsheet(fullName: user.emailID),
+                                          Bottomsheet(fullName: user.fullName,mobileNo:user.mobileNo),
                                     );
                                     // const uri =
                                     //     'mailto:test@example.org?subject=Greetings&body=Hello%20World';

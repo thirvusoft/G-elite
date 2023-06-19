@@ -1,14 +1,29 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
+import 'package:gelite/utils/helper.dart';
+import 'package:get/get.dart';
 
+import '../controller/userdetailcontroller.dart';
 import '../utils/colors.dart';
 import 'button.dart';
 
-class Bottomsheet extends StatelessWidget {
+class Bottomsheet extends StatefulWidget {
   final String fullName;
+    final String mobileNo;
 
-  const Bottomsheet({Key? key, required this.fullName}) : super(key: key);
+
+   Bottomsheet({Key? key, required this.fullName,  required this.mobileNo}) : super(key: key);
+   
+
+  @override
+  State<Bottomsheet> createState() => _BottomsheetState();
+}
+
+class _BottomsheetState extends State<Bottomsheet> {
+  TextEditingController descriptionController = TextEditingController();
+  var message="";
+
+  final Userdetailscontroller eventcontroller =
+      Get.put(Userdetailscontroller());
 
   @override
   Widget build(BuildContext context) {
@@ -49,10 +64,18 @@ class Bottomsheet extends StatelessWidget {
                         }),
                   ))
             ]),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
+             Padding(
+              padding: const EdgeInsets.all(8.0),
               child: TextField(
-                decoration: InputDecoration(labelText: 'Enter Message'),
+                onChanged: (value)
+                {
+                  setState(() {
+                     message=value;
+
+                  });
+                },
+                controller: descriptionController,
+                decoration: const InputDecoration(labelText: 'Enter Message'),
                 keyboardType: TextInputType.multiline,
                 minLines: 1,
                 maxLines: 5,
@@ -63,8 +86,16 @@ class Bottomsheet extends StatelessWidget {
             ),
             Elevatebutton(
               name: 'Send',
-              value: [],
-              onPressed: () {},
+              value: {"d":{
+
+            
+                "user":widget.fullName,
+                "mobileNo":widget.mobileNo,
+                "description":message,
+              }},
+              onPressed: () {
+                print("object");
+              },
             )
           ],
         ),

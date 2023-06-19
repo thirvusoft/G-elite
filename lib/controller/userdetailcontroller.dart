@@ -1,5 +1,6 @@
 import "dart:convert";
 import "package:flutter_dotenv/flutter_dotenv.dart";
+import "package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart";
 import 'package:http/http.dart' as http;
 import "package:get/state_manager.dart";
 import "package:shared_preferences/shared_preferences.dart";
@@ -31,7 +32,17 @@ class Userdetailscontroller extends GetxController {
     }
   }
 
-  Future<void> callNotifi(data) async {
+  Future callNotifi(data) async {
+   print(data);
+  int mobileNo = int.parse(
+    data['d']['mobileNo'][1].toString());
+  print("decxrtvy5tr");
+    print(mobileNo);
+  //  List o=[];
+  //  o.add(data);
+   
+   
+   
     try {
       final prefs = await SharedPreferences.getInstance();
 
@@ -46,10 +57,14 @@ class Userdetailscontroller extends GetxController {
         },
       );
 
-      var eventsJson = jsonDecode(response.body)['user_details'] as List;
-      print(eventsJson);
-      userDetail.value =
-          eventsJson.map((details) => UserDetails.fromJson(details)).toList();
+     print(response.statusCode);
+     print(response.body);
+     if(response.statusCode==200){
+      
+          // if (user.mobileNo.length >= 10) {
+          //     await FlutterPhoneDirectCaller.callNumber(user.mobileNo);
+          //   }
+     }
     } catch (e) {
       print('Error fetching events: $e');
     }
