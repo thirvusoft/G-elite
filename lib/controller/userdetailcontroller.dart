@@ -78,9 +78,9 @@ class Userdetailscontroller extends GetxController {
           isDismissible: true,
           forwardAnimationCurve: Curves.easeOutBack,
         );
-        // if (data["mobile"].length >= 10) {
-        //   await FlutterPhoneDirectCaller.callNumber(data["mobile"].toString());
-        // }
+        if (data["mobile"].length >= 10) {
+          await FlutterPhoneDirectCaller.callNumber(data["mobile"].toString());
+        }
       }
     } catch (e) {
       print('Error fetching events: $e');

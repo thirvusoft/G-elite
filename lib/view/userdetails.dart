@@ -69,7 +69,9 @@ class UserDetail extends StatelessWidget {
                                       ),
                                       isScrollControlled: true,
                                       builder: (BuildContext context) =>
-                                          Bottomsheet(fullName: user.fullName,mobileNo:user.mobileNo),
+                                          Bottomsheet(
+                                              fullName: user.fullName,
+                                              mobileNo: user.mobileNo),
                                     );
                                     // const uri =
                                     //     'mailto:test@example.org?subject=Greetings&body=Hello%20World';
@@ -196,8 +198,23 @@ class UserDetail extends StatelessWidget {
                               final user = eventcontroller.userDetail[index];
                               return Column(
                                 children: [
-                                  GestureDetector(
-                                      onTap: () async {
+                                  ListTile(
+                                    leading: CircleAvatar(
+                                        backgroundColor:
+                                            AppColors.backgroundColor,
+                                        child: Icon(
+                                          PhosphorIcons.at,
+                                          color: AppColors.iconcolor,
+                                        )),
+                                    title: Text(
+                                      'Email: ${(user.emailID == "") ? "-----" : user.emailID}',
+                                    ),
+                                    trailing: IconButton(
+                                      icon: const Icon(
+                                        PhosphorIcons.caret_right,
+                                        size: 25,
+                                      ),
+                                      onPressed: () async {
                                         var id = user.emailID;
                                         var uri =
                                             'mailto:$id?subject=Greetings&body=Hello';
@@ -207,18 +224,31 @@ class UserDetail extends StatelessWidget {
                                           throw 'Could not launch $uri';
                                         }
                                       },
-                                      child: ListTile(
-                                        leading: CircleAvatar(
-                                            backgroundColor:
-                                                AppColors.backgroundColor,
-                                            child: Icon(
-                                              PhosphorIcons.at,
-                                              color: AppColors.iconcolor,
-                                            )),
-                                        title: Text(
-                                          'Email: ${(user.emailID == "") ? "-----" : user.emailID}',
-                                        ),
-                                      )),
+                                    ),
+                                  ),
+                                  const Divider(),
+                                  ListTile(
+                                    leading: CircleAvatar(
+                                        backgroundColor:
+                                            AppColors.backgroundColor,
+                                        child: Icon(
+                                          PhosphorIcons.device_mobile,
+                                          color: AppColors.iconcolor,
+                                        )),
+                                    title: Text('MobileNo: ${user.mobileNo}'),
+                                    trailing: IconButton(
+                                      icon: const Icon(
+                                        PhosphorIcons.caret_right,
+                                        size: 25,
+                                      ),
+                                      onPressed: () async {
+                                        if (user.mobileNo.length >= 10) {
+                                          await launch(
+                                              "https://wa.me/${user.mobileNo}?text=Hello");
+                                        }
+                                      },
+                                    ),
+                                  ),
                                   const Divider(),
                                   ListTile(
                                     leading: CircleAvatar(
@@ -266,17 +296,6 @@ class UserDetail extends StatelessWidget {
                                         )),
                                     title: Text(
                                         'AadharNo: ${(user.aadharNo == "") ? " ---" : user.aadharNo}'),
-                                  ),
-                                  const Divider(),
-                                  ListTile(
-                                    leading: CircleAvatar(
-                                        backgroundColor:
-                                            AppColors.backgroundColor,
-                                        child: Icon(
-                                          PhosphorIcons.device_mobile,
-                                          color: AppColors.iconcolor,
-                                        )),
-                                    title: Text('MobileNo: ${user.mobileNo}'),
                                   ),
                                   const Divider(),
                                 ],
