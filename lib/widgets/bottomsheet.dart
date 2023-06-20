@@ -8,19 +8,20 @@ import 'button.dart';
 
 class Bottomsheet extends StatefulWidget {
   final String fullName;
-    final String mobileNo;
+  final String mobileNo;
 
-
-   Bottomsheet({Key? key, required this.fullName,  required this.mobileNo}) : super(key: key);
-   
+  Bottomsheet({Key? key, required this.fullName, required this.mobileNo})
+      : super(key: key);
 
   @override
   State<Bottomsheet> createState() => _BottomsheetState();
 }
 
 class _BottomsheetState extends State<Bottomsheet> {
+  final bootmsheetkey = GlobalKey<FormState>();
+
   TextEditingController descriptionController = TextEditingController();
-  var message="";
+  var message = "";
 
   final Userdetailscontroller eventcontroller =
       Get.put(Userdetailscontroller());
@@ -34,10 +35,7 @@ class _BottomsheetState extends State<Bottomsheet> {
       child: SizedBox(
         height: MediaQuery.of(context).size.height * 0.30,
         child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // const Text(
-            //   "Send Message",
             Stack(children: [
               const SizedBox(
                 width: double.infinity,
@@ -64,42 +62,50 @@ class _BottomsheetState extends State<Bottomsheet> {
                         }),
                   ))
             ]),
-             Padding(
+            Padding(
               padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                onChanged: (value)
-                {
-                  setState(() {
-                     message=value;
-
-                  });
-                },
-                controller: descriptionController,
-                decoration: const InputDecoration(labelText: 'Enter Message'),
-                keyboardType: TextInputType.multiline,
-                minLines: 1,
-                maxLines: 5,
-              ),
+              child: Form(
+                  key: bootmsheetkey,
+                  child: TextFormField(
+                    onChanged: (value) {
+                      setState(() {
+                        message = value;
+                      });
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'A message should not be empty!';
+                      }
+                      return null;
+                    },
+                    controller: descriptionController,
+                    decoration:
+                        const InputDecoration(labelText: 'Enter Message'),
+                    keyboardType: TextInputType.multiline,
+                    minLines: 1,
+                    maxLines: 5,
+                  )),
             ),
             const SizedBox(
               height: 20,
             ),
             Elevatebutton(
               name: 'Send',
-              value: {"d":{
-
-            
-                "user":widget.fullName,
-                "mobileNo":widget.mobileNo,
-                "description":message,
-              }},
-              onPressed: () {
-                print("object");
+              value: {
+                "user": widget.fullName,
+                "mobile": widget.mobileNo,
+                "description": message,
               },
+              onPressed: () {},
+              formKey: bootmsheetkey,
             )
           ],
         ),
       ),
     ));
+  }
+
+  void closeBottomSheet(BuildContext context) {
+    Navigator.of(context).pop();
   }
 }
