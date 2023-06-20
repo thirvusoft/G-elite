@@ -90,7 +90,7 @@ final getPages = [
   ),
   GetPage(
     name: Routes.landingPage1,
-    page: () => LandingPage1(),
+    page: () => const LandingPage1(),
     transition: Transition.leftToRightWithFade,
     transitionDuration: const Duration(milliseconds: 500),
   ),

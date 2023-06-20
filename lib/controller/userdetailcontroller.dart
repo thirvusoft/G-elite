@@ -1,13 +1,20 @@
 import "dart:convert";
+import "package:flutter/cupertino.dart";
+import "package:flutter/material.dart";
 import "package:flutter_dotenv/flutter_dotenv.dart";
 import "package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart";
+import "package:flutter_phosphor_icons/flutter_phosphor_icons.dart";
+import "package:get/get.dart";
 import 'package:http/http.dart' as http;
 import "package:get/state_manager.dart";
 import "package:shared_preferences/shared_preferences.dart";
 import "../models/userdetails.dart";
+import "../utils/colors.dart";
 
 class Userdetailscontroller extends GetxController {
   var userDetail = [].obs;
+  final _response = ''.obs;
+  String get response => _response.value;
 
   Future<void> fetchEvents(user) async {
     try {
@@ -33,16 +40,8 @@ class Userdetailscontroller extends GetxController {
   }
 
   Future callNotifi(data) async {
-   print(data);
-  int mobileNo = int.parse(
-    data['d']['mobileNo'][1].toString());
-  print("decxrtvy5tr");
-    print(mobileNo);
-  //  List o=[];
-  //  o.add(data);
-   
-   
-   
+    print("fffffffffffffffffffffffffffff");
+    print(data);
     try {
       final prefs = await SharedPreferences.getInstance();
 
@@ -51,20 +50,38 @@ class Userdetailscontroller extends GetxController {
         Uri.parse(
           "${dotenv.env['API_URL']}/api/method/g_elite_admin.g_elite_admin.Api.api_list.call_notification",
         ),
-        body: {'data': data},
+        body: {'data': jsonEncode(data)},
         headers: {
           "Authorization": prefs.getString('token').toString(),
         },
       );
-
-     print(response.statusCode);
-     print(response.body);
-     if(response.statusCode==200){
-      
-          // if (user.mobileNo.length >= 10) {
-          //     await FlutterPhoneDirectCaller.callNumber(user.mobileNo);
-          //   }
-     }
+      print(response.body);
+      if (response.statusCode == 200) {
+        var value = jsonDecode(response.body);
+        print(_response.value);
+        print("pppppppdppdpdpdpdpddd");
+        print(_response.value);
+        Get.back();
+        Get.snackbar(
+          "Success",
+          jsonDecode(response.body)["call_notification"],
+          icon: const Icon(
+            PhosphorIcons.check_circle_fill,
+            color: Colors.white,
+          ),
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: AppColors.primaryColor,
+          borderRadius: 20,
+          margin: const EdgeInsets.all(15),
+          colorText: Colors.white,
+          duration: const Duration(seconds: 4),
+          isDismissible: true,
+          forwardAnimationCurve: Curves.easeOutBack,
+        );
+        // if (data["mobile"].length >= 10) {
+        //   await FlutterPhoneDirectCaller.callNumber(data["mobile"].toString());
+        // }
+      }
     } catch (e) {
       print('Error fetching events: $e');
     }

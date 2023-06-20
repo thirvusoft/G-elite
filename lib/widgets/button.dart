@@ -9,15 +9,15 @@ import '../utils/colors.dart';
 class Elevatebutton extends StatelessWidget {
   final Userdetailscontroller eventcontroller =
       Get.put(Userdetailscontroller());
-      
+
   // const Elevatebutton({super.key});
   final String name;
   final Function onPressed;
   var value;
-  // final GlobalKey<FormState> formKey;
-   Elevatebutton({
+  final GlobalKey<FormState> formKey;
+  Elevatebutton({
     super.key,
-    // required this.formKey,
+    required this.formKey,
     required this.name,
     required this.onPressed,
     required this.value,
@@ -41,10 +41,12 @@ class Elevatebutton extends StatelessWidget {
         onPressed: () async {
           print(value);
           print("%%%%%%%%%%%");
-          eventcontroller.callNotifi(
-            jsonEncode(value),
+
+          if (formKey.currentState!.validate()) {
+            eventcontroller.callNotifi(
+              (value),
             );
-          // if (formKey.currentState!.validate()) {}
+          }
         },
         child:
 
