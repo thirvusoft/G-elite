@@ -42,6 +42,8 @@ class Userdetailscontroller extends GetxController {
   Future callNotifi(data) async {
     print("fffffffffffffffffffffffffffff");
     print(data);
+    print(jsonEncode(data));
+
     try {
       final prefs = await SharedPreferences.getInstance();
 

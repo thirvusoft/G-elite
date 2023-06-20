@@ -104,8 +104,4 @@ class _BottomsheetState extends State<Bottomsheet> {
       ),
     ));
   }
-
-  void closeBottomSheet(BuildContext context) {
-    Navigator.of(context).pop();
-  }
 }

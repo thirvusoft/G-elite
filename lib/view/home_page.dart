@@ -89,7 +89,9 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                                 PhosphorIcons.bell,
                               ),
                               color: AppColors.scaffoldBackgroundColor,
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.toNamed('/Notification');
+                              },
                             ),
                           ],
                         )),
