@@ -9,6 +9,7 @@ import 'package:gelite/view/user_list.dart';
 import 'package:get/get.dart';
 import '../view/home_page.dart';
 import '../view/bottomnavigation.dart';
+import '../view/notification.dart';
 import '../view/profile.dart';
 import '../view/userdetails.dart';
 
@@ -25,6 +26,7 @@ class Routes {
   static String eventcreation = '/EventCreation';
   static String landingPage1 = '/landingPage1';
   static String UserDetail = '/UserDetail';
+  static String Notification = '/Notification';
 }
 
 /// Add this list variable into your GetMaterialApp as the value of getPages parameter.
@@ -97,6 +99,12 @@ final getPages = [
   GetPage(
     name: Routes.UserDetail,
     page: () => UserDetail(),
+    transition: Transition.leftToRightWithFade,
+    transitionDuration: const Duration(milliseconds: 500),
+  ),
+  GetPage(
+    name: Routes.Notification,
+    page: () => Notification(),
     transition: Transition.leftToRightWithFade,
     transitionDuration: const Duration(milliseconds: 500),
   ),

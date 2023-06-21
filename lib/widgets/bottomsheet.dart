@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gelite/utils/helper.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controller/userdetailcontroller.dart';
 import '../utils/colors.dart';
@@ -22,11 +23,26 @@ class _BottomsheetState extends State<Bottomsheet> {
 
   TextEditingController descriptionController = TextEditingController();
   var message = "";
-
+  var email = "";
   final Userdetailscontroller eventcontroller =
       Get.put(Userdetailscontroller());
 
   @override
+  void initState() {
+    super.initState();
+    Future(() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      setState(() {
+        email = prefs.getString('doc_name')!;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     return SingleChildScrollView(
         child: Padding(
@@ -95,6 +111,7 @@ class _BottomsheetState extends State<Bottomsheet> {
                 "user": widget.fullName,
                 "mobile": widget.mobileNo,
                 "description": message,
+                "email": email
               },
               onPressed: () {},
               formKey: bootmsheetkey,
@@ -103,9 +120,5 @@ class _BottomsheetState extends State<Bottomsheet> {
         ),
       ),
     ));
-  }
-
-  void closeBottomSheet(BuildContext context) {
-    Navigator.of(context).pop();
   }
 }
