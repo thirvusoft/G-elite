@@ -61,4 +61,6 @@ class Signupcontroller extends GetxController {
     }
     return null;
   }
+  
 }
+

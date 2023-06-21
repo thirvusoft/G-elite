@@ -27,6 +27,7 @@ TextEditingController profilebloodController = TextEditingController();
 TextEditingController profilepasswordController = TextEditingController();
 TextEditingController profileconfirmController = TextEditingController();
 
+
 double value = 0.0;
 bool upload = false;
 
@@ -44,5 +45,8 @@ TextEditingController enddataController = TextEditingController();
 TextEditingController uerController = TextEditingController();
 TextEditingController subController = TextEditingController();
 List userlist=[];
+
+TextEditingController signupnewKottam = TextEditingController();
+TextEditingController signupnewKovil = TextEditingController();
 
 

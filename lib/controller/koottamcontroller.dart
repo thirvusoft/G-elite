@@ -5,6 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/colors.dart';
 
@@ -53,7 +54,27 @@ class Koottamcontroller extends GetxController {
       print('Error fetching events: $e');
     }
   }
+ Future newkottam(data) async
+ {
+  final prefs = await SharedPreferences.getInstance();
+        await dotenv.load();
+         var response = await http.post(
+          Uri.parse(
+              "${dotenv.env['API_URL']}/api/method/g_elite_admin.g_elite_admin.Api.api_list.kootam_kovil_details"),
+              headers: 
+              {
+                "Authorization":prefs.getString('token').toString(),
+              }
+              ,
+          body: {
+            "data":jsonEncode(data)
+          }
+      
+          );
+          print(response.body);
+          print(response.statusCode);
 
+ }
   Future eventCreations(data) async {
     print("dddddddddddddddddd");
     print(data);
@@ -71,6 +92,7 @@ class Koottamcontroller extends GetxController {
 
       print(response.body);
       if (response.statusCode == 200) {
+        Get.back();
         print("ddddddddddddddadasddsdasdasdasd");
         var value = jsonDecode(response.body);
         print(value);
