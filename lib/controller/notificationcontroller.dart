@@ -16,6 +16,7 @@ class Notificationcontroller extends GetxController {
   }
 
   Future notifi() async {
+    print("ppp");
     try {
       final prefs = await SharedPreferences.getInstance();
       await dotenv.load();

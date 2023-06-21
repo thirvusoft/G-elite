@@ -9,6 +9,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 import '../controller/eventcontroller.dart';
+import '../controller/notificationcontroller.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -23,9 +24,19 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
   late Timer timer;
   var name = "";
   var kottom = "";
+  var counter = 0;
   bool _result = true;
+  final Notificationcontroller notificontroller =
+      Get.put(Notificationcontroller());
   @override
   void initState() {
+    notificontroller.notifi();
+    if (notificontroller.notificationLists.isNotEmpty) {
+      setState(() {
+        counter = notificontroller.notificationLists.length;
+        print(counter);
+      });
+    }
     super.initState();
     temp();
     _tabController = TabController(length: 2, vsync: this);
@@ -82,17 +93,46 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                                       AssetImage('assets/profile.png'),
                                 )),
                             const SizedBox(
-                              width: 280,
+                              width: 275,
                             ),
-                            IconButton(
-                              icon: const Icon(
-                                PhosphorIcons.bell,
-                              ),
-                              color: AppColors.scaffoldBackgroundColor,
-                              onPressed: () {
-                                Get.toNamed('/Notification');
-                              },
-                            ),
+                            Stack(
+                              children: <Widget>[
+                                IconButton(
+                                    icon: Icon(PhosphorIcons.bell,
+                                        color:
+                                            AppColors.scaffoldBackgroundColor),
+                                    onPressed: () {
+                                      Get.toNamed('/Notification');
+                                    }),
+                                notificontroller.notificationLists.isNotEmpty
+                                    ? Positioned(
+                                        right: 11,
+                                        top: 11,
+                                        child: Container(
+                                          padding: const EdgeInsets.all(2),
+                                          decoration: BoxDecoration(
+                                            color: AppColors.iconcolor,
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                          ),
+                                          constraints: const BoxConstraints(
+                                            minWidth: 14,
+                                            minHeight: 14,
+                                          ),
+                                        ),
+                                      )
+                                    : Container()
+                              ],
+                            )
+                            // IconButton(
+                            //   icon: const Icon(
+                            //     PhosphorIcons.bell,
+                            //   ),
+                            //   color: AppColors.scaffoldBackgroundColor,
+                            //   onPressed: () {
+                            //     Get.toNamed('/Notification');
+                            //   },
+                            // ),
                           ],
                         )),
                     Positioned(

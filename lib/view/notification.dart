@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../controller/notificationcontroller.dart';
+import '../models/time.dart';
 import '../utils/colors.dart';
 
 class Notification extends StatefulWidget {
@@ -44,13 +45,30 @@ class _NotificationState extends State<Notification> {
         ),
       ),
       body: Obx(
-        () => ListView.builder(
+        () => ListView.separated(
           itemCount: notificontroller.notificationLists.length,
           itemBuilder: (BuildContext context, int index) {
-            final Notification = notificontroller.notificationLists[index];
+            final notification = notificontroller.notificationLists[index];
+            print(notificontroller.notificationLists.length);
+            var result = timeAgoCustom(DateTime.parse(notification.date));
             return ListTile(
-              title: Text(Notification.description),
+              leading: CircleAvatar(
+                backgroundColor: AppColors.backgroundColor,
+                child: Text(
+                  notification.username[0],
+                  style: TextStyle(color: AppColors.iconcolor),
+                ),
+              ),
+              title: Text(
+                notification.username + " " + notification.description,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+              ),
+              subtitle: Text(result.toString()),
             );
+          },
+          separatorBuilder: (context, index) {
+            return const Divider();
           },
         ),
       ),
