@@ -60,31 +60,20 @@ class UserDetail extends StatelessWidget {
                               .map(
                                 (user) => IconButton(
                                   onPressed: () async {
-                                    showModalBottomSheet(
-                                      context: context,
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.vertical(
-                                          top: Radius.circular(25.0),
-                                        ),
-                                      ),
-                                      isScrollControlled: true,
-                                      builder: (BuildContext context) =>
-                                          Bottomsheet(
-                                              fullName: user.fullName,
-                                              mobileNo: user.mobileNo),
-                                    );
-                                    // const uri =
-                                    //     'mailto:test@example.org?subject=Greetings&body=Hello%20World';
-                                    // if (await canLaunch(uri)) {
-                                    //   await launch(uri);
-                                    // } else {
-                                    //   throw 'Could not launch $uri';
-                                    // }
-
-                                    // if (user.mobileNo.length >= 10) {
-                                    //   await FlutterPhoneDirectCaller.callNumber(
-                                    //       user.mobileNo);
-                                    // }
+                                    Get.toNamed("/Bannerupload");
+                                    // showModalBottomSheet(
+                                    //   context: context,
+                                    //   shape: const RoundedRectangleBorder(
+                                    //     borderRadius: BorderRadius.vertical(
+                                    //       top: Radius.circular(25.0),
+                                    //     ),
+                                    //   ),
+                                    //   isScrollControlled: true,
+                                    //   builder: (BuildContext context) =>
+                                    //       Bottomsheet(
+                                    //           fullName: user.fullName,
+                                    //           mobileNo: user.mobileNo),
+                                    // );
                                   },
                                   icon: const Icon(
                                     PhosphorIcons.phone_outgoing,
