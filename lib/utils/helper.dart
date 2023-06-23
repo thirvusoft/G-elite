@@ -26,6 +26,9 @@ TextEditingController profiledobController = TextEditingController();
 TextEditingController profilebloodController = TextEditingController();
 TextEditingController profilepasswordController = TextEditingController();
 TextEditingController profileconfirmController = TextEditingController();
+TextEditingController descriptionController = TextEditingController();
+TextEditingController messageController = TextEditingController();
+TextEditingController tittleController = TextEditingController();
 
 
 double value = 0.0;

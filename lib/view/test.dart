@@ -215,15 +215,15 @@ class _MultipleFilepickerScreenState extends State<MultipleFilepickerScreen> {
                   setState(() {
                     upload = true;
                   });
-                  filepi.uploadFiles();
-                  bool allFilesUploaded = await filepi.uploadFiles();
-                  if (allFilesUploaded) {
-                    setState(() {
-                      print(allFilesUploaded);
-                      print("gfgfgfgfgfgfgffg");
-                      upload = false;
-                    });
-                  }
+                  // filepi.uploadFiles();
+                  // bool allFilesUploaded = await filepi.uploadFiles();
+                  // if (allFilesUploaded) {
+                  //   setState(() {
+                  //     print(allFilesUploaded);
+                  //     print("gfgfgfgfgfgfgffg");
+                  //     upload = false;
+                  //   });
+                  // }
                 },
                 child: (upload)
                     ? LoadingAnimationWidget.prograssiveDots(

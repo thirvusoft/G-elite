@@ -38,27 +38,12 @@ class Elevatebutton extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
         ),
-        onPressed: () async {
-          print(value);
-          print("%%%%%%%%%%%");
-
+        onPressed: () {
           if (formKey.currentState!.validate()) {
-            eventcontroller.callNotifi(
-              (value),
-            );
+            onPressed();
           }
         },
-        child:
-
-            // (_result)
-            //     ? LoadingAnimationWidget.discreteCircle(
-            //         color: Colors.white,
-            //         size: 25,
-            //         secondRingColor: Colors.white,
-            //       )
-            //     :
-
-            Text(name.toString()),
+        child: Text(name.toString()),
       ),
     );
   }

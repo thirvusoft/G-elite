@@ -16,6 +16,7 @@ class Userdetailscontroller extends GetxController {
   final _response = ''.obs;
   String get response => _response.value;
 
+
   Future<void> fetchEvents(user) async {
     try {
       final prefs = await SharedPreferences.getInstance();

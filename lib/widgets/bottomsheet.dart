@@ -113,7 +113,12 @@ class _BottomsheetState extends State<Bottomsheet> {
                 "description": message,
                 "email": email
               },
-              onPressed: () {},
+              onPressed: () => eventcontroller.callNotifi({
+                "user": widget.fullName,
+                "mobile": widget.mobileNo,
+                "description": message,
+                "email": email
+              }),
               formKey: bootmsheetkey,
             )
           ],

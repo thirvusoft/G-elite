@@ -1,3 +1,4 @@
+import "dart:convert";
 import "dart:io";
 import "package:dio/dio.dart";
 import "package:file_picker/file_picker.dart";
@@ -9,6 +10,7 @@ import 'package:get/get.dart' as GET;
 import "package:get/get_navigation/src/snackbar/snackbar.dart";
 import "package:get/state_manager.dart";
 import "package:shared_preferences/shared_preferences.dart";
+import 'package:http/http.dart' as http;
 
 import "../utils/colors.dart";
 
@@ -24,6 +26,7 @@ class FilePickerController extends GetxController {
 
     if (result != null) {
       selectedFiles.assignAll(result.paths);
+      print(selectedFiles.toString());
     } else {
       // User canceled the file picking.
     }
@@ -33,7 +36,7 @@ class FilePickerController extends GetxController {
     selectedFiles.remove(index);
   }
 
-  Future<bool> uploadFiles() async {
+  Future<bool> uploadFiles(docname, doctype) async {
     print("dddddddddddddd");
     final prefs = await SharedPreferences.getInstance();
     await dotenv.load();
@@ -50,9 +53,9 @@ class FilePickerController extends GetxController {
 
         FormData formData = FormData.fromMap({
           "file": await MultipartFile.fromFile(file.path, filename: filename),
-          "docname": prefs.getString('doc_name').toString(),
-          "doctype": 'User',
-          "attached_to_name": prefs.getString('full_name').toString(),
+          "docname": docname,
+          "doctype": doctype,
+          "attached_to_name": docname,
           "is_private": 0,
           "folder": "Home/Attachments"
         });
@@ -74,7 +77,7 @@ class FilePickerController extends GetxController {
             selectedFiles.clear();
             Get.snackbar(
               "Success",
-            "Great! The file has been uploaded successfully.",
+              "Great! The file has been uploaded successfully.",
               icon: const Icon(
                 PhosphorIcons.check_circle_fill,
                 color: Colors.white,
@@ -106,5 +109,35 @@ class FilePickerController extends GetxController {
     }
 
     return false;
+  }
+
+  Future banner(data) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    var value = data;
+    value["user"] = prefs.getString('full_name').toString();
+
+    print("dddddddddddddddddd");
+    print(data);
+    print(value);
+    await dotenv.load();
+    try {
+      var response = await http.post(
+        Uri.parse(
+            "${dotenv.env['API_URL']}/api/method/g_elite_admin.g_elite_admin.Api.api_list.create_banner"),
+        body: {'data': jsonEncode(data)},
+        headers: {
+          "Authorization": prefs.getString('token').toString(),
+        },
+      );
+      print(response.body);
+      var doc_name = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        print(doc_name["docname"]);
+        uploadFiles(doc_name["docname"], "Banner");
+      }
+    } catch (e) {
+      print('Error fetching events: $e');
+    }
   }
 }
