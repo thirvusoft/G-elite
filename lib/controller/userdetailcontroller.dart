@@ -17,11 +17,7 @@ class Userdetailscontroller extends GetxController {
   var userOrg = [].obs;
   final _response = ''.obs;
   String get response => _response.value;
-  @override
-  // void onInit() {
-  //   fetchEvents();
-  //   super.onInit();
-  // }
+
   Future<void> fetchEvents(user) async {
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -84,6 +80,8 @@ class Userdetailscontroller extends GetxController {
   Future callNotifi(data) async {
     print("fffffffffffffffffffffffffffff");
     print(data);
+    print(jsonEncode(data));
+
     try {
       final prefs = await SharedPreferences.getInstance();
 
