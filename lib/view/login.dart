@@ -25,7 +25,6 @@ class _LoginState extends State<Login> {
   bool _result = false;
   final _formKey = GlobalKey<FormState>();
   final Koottamcontroller kottamcontroller = Get.put(Koottamcontroller());
-  final Eventcontroller eventcontroller = Get.put(Eventcontroller());
 
   @override
   Widget build(BuildContext context) {
@@ -40,44 +39,49 @@ class _LoginState extends State<Login> {
               child: Column(
                 children: [
                   Obx(() => CarouselSlider.builder(
-                        itemCount: eventcontroller.bannerImg.length,
+                        itemCount: eventcontroller.bannerlist.length,
                         itemBuilder: (BuildContext context, int itemIndex,
                             int pageViewIndex) {
-                          var banner = eventcontroller.bannerImg[itemIndex];
-
-                          return Banner(
-                            message: banner.offerMsg,
-                            location: BannerLocation.topStart,
-                            color: Colors.red,
-                            child: Container(
-                              color: Colors.white,
-                              height: 220,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(10, 20, 10, 20),
-                                child: Column(
-                                  children: <Widget>[
-                                    Image.network(banner.image),
-                                    const SizedBox(height: 5),
-                                    Text(
-                                      banner.description,
-                                      style: const TextStyle(
-                                          color: Colors.green,
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    const Text(
-                                      'Fork Python Course',
-                                      style: TextStyle(
-                                          color: Colors.green,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
+                          print("pppppppppppdsddsdsdsdsds");
+                          print(eventcontroller.bannerlist.length);
+                          var banner = eventcontroller.bannerlist[itemIndex];
+                          if (eventcontroller.bannerlist.isNotEmpty) {
+                            return Container();
+                          } else {
+                            return Banner(
+                              message: banner.offerMsg,
+                              location: BannerLocation.topStart,
+                              color: Colors.red,
+                              child: Container(
+                                color: Colors.white,
+                                height: 220,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 20, 10, 20),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Image.network(banner.image),
+                                      const SizedBox(height: 5),
+                                      Text(
+                                        banner.description,
+                                        style: const TextStyle(
+                                            color: Colors.green,
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      const Text(
+                                        'Fork Python Course',
+                                        style: TextStyle(
+                                            color: Colors.green,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
+                            );
+                          }
                         },
                         options: CarouselOptions(
                           height: 230,

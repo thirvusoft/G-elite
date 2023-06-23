@@ -7,6 +7,8 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../controller/eventcontroller.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -20,6 +22,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     time();
+    Get.put(Eventcontroller());
+    Get.find<Eventcontroller>().bannerList();
   }
 
   @override

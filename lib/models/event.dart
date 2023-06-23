@@ -6,8 +6,8 @@ class Event {
 
   factory Event.fromJson(Map<String, dynamic> json) {
     return Event(
-      name: json['name'],
-      startsOn: DateTime.parse(json['starts_on']),
+      name: json['name'] ?? '',
+      startsOn: DateTime.parse(json['starts_on'] ?? ''),
     );
   }
 
@@ -27,8 +27,8 @@ class Events {
 
   factory Events.fromJson(Map<String, dynamic> json) {
     return Events(
-      name: json['name'],
-      startsOn: DateTime.parse(json['starts_on']),
+      name: json['name'] ?? '',
+      startsOn: DateTime.parse(json['starts_on'] ?? ''),
     );
   }
 

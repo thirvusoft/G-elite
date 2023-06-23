@@ -1,5 +1,4 @@
 import "dart:convert";
-import "package:dio/dio.dart";
 import "package:flutter_dotenv/flutter_dotenv.dart";
 import "package:gelite/models/profile.dart";
 import 'package:http/http.dart' as http;
@@ -10,11 +9,11 @@ import "../models/event.dart";
 class Eventcontroller extends GetxController {
   var eventList = [].obs;
   var eventLists = [].obs;
-  var bannerImg = [].obs;
+  var bannerlist = [].obs;
 
   @override
   void onInit() {
-    bannerList();
+    // bannerList();
     fetchEvents();
     super.onInit();
   }
@@ -51,9 +50,16 @@ class Eventcontroller extends GetxController {
       var response = await http.get(Uri.parse(
         "${dotenv.env['API_URL']}/api/method/g_elite_admin.g_elite_admin.Api.api_list.banner_image",
       ));
-      var bannerImage = jsonDecode(response.body)['message'] as List;
-      bannerImg.value =
-          bannerImage.map((banner) => MyModel.fromJson(banner)).toList();
+      print(response.body);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        var bannerImage = jsonDecode(response.body)['message'] as List;
+        print(bannerImage);
+        print("bannerImage");
+        print("bannerImage");
+        bannerlist.value =
+            bannerImage.map((banner) => MyModel.fromJson(banner)).toList();
+      }
     } catch (e) {
       print('Error fetching events: $e');
     }

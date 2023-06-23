@@ -43,17 +43,9 @@ class MyModel {
 
   factory MyModel.fromJson(Map<String, dynamic> json) {
     return MyModel(
-      image: json['image'],
-      description: json['description'],
-      offerMsg: json['offer_msg'],
+      image: json['image'] ?? '',
+      description: json['description'] ?? '',
+      offerMsg: json['offer_msg'] ?? '',
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'image': image,
-      'description': description,
-      'offer_msg': offerMsg,
-    };
   }
 }
