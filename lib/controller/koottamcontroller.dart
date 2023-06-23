@@ -71,8 +71,28 @@ class Koottamcontroller extends GetxController {
           }
       
           );
-          print(response.body);
-          print(response.statusCode);
+                 Get.back();
+        print("ddddddddddddddadasddsdasdasdasd");
+        var value = jsonDecode(response.body);
+        print(value);
+        print("ddddddddddddddadasddsdasdasdasd");
+
+        Get.snackbar(
+          "Success",
+          value["message"],
+          icon: const Icon(
+            PhosphorIcons.check_circle_fill,
+            color: Colors.white,
+          ),
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: AppColors.primaryColor,
+          borderRadius: 20,
+          margin: const EdgeInsets.all(15),
+          colorText: Colors.white,
+          duration: const Duration(seconds: 3),
+          isDismissible: true,
+          forwardAnimationCurve: Curves.bounceIn,
+        );
 
  }
   Future eventCreations(data) async {

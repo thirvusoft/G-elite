@@ -32,3 +32,28 @@ class Profile {
     );
   }
 }
+
+class MyModel {
+  String image;
+  String description;
+  String offerMsg;
+
+  MyModel(
+      {required this.image, required this.description, required this.offerMsg});
+
+  factory MyModel.fromJson(Map<String, dynamic> json) {
+    return MyModel(
+      image: json['image'],
+      description: json['description'],
+      offerMsg: json['offer_msg'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'image': image,
+      'description': description,
+      'offer_msg': offerMsg,
+    };
+  }
+}

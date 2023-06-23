@@ -11,6 +11,8 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:searchfield/searchfield.dart';
 import 'package:heroicons/heroicons.dart';
 import '../controller/koottamcontroller.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:http/http.dart' as http;
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -24,7 +26,7 @@ class _SignupState extends State<Signup> {
   final Signupcontroller signupcontroller = Get.put(Signupcontroller());
 
   final _signupKey = GlobalKey<FormState>();
-    final _signupKottam = GlobalKey<FormState>();
+  final _signupKottam = GlobalKey<FormState>();
 
   bool _isHidden = true;
   bool _result = false;
@@ -169,14 +171,15 @@ class _SignupState extends State<Signup> {
                         FocusScope.of(context).unfocus();
                       },
                       searchInputDecoration: InputDecoration(
-                        suffixIcon:IconButton(icon:const HeroIcon(
-                              HeroIcons.userGroup,
-                              size: 15,
-                            ),onPressed: () {
-                              showpopup();
-                            },
-
-                            ),
+                        suffixIcon: IconButton(
+                          icon: const HeroIcon(
+                            HeroIcons.userGroup,
+                            size: 15,
+                          ),
+                          onPressed: () {
+                            showpopup();
+                          },
+                        ),
                         enabledBorder: UnderlineInputBorder(
                           borderSide:
                               BorderSide(width: 1, color: AppColors.textcolour),
@@ -505,63 +508,64 @@ class _SignupState extends State<Signup> {
           ),
         ));
   }
-  
+
   showpopup() {
-      showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  scrollable: true,
-                  title: const Text("New Kootam & Kovil"),
-                  content: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Form(
-                      key: _signupKottam,
-                      child: Column(
-                        children: [
-                          TextFormField(
-                            controller: signupnewKottam,
-                            validator: (value) {
-                              if(value!.isEmpty){
-                                return "Enter kootam";
-                                
-                              }
-                            },
-                            decoration: const InputDecoration(
-                              labelText: "Kootom",
-                              icon: Icon(Icons.group_add_sharp),
-                            ),
-                          ),
-                          TextFormField(
-                            controller: signupnewKovil,
-                             validator: (value) {
-                              if(value!.isEmpty){
-                                return "Enter kovil";
-                                
-                              }
-                            },
-                            decoration: const InputDecoration(
-                              labelText: "Kovil",
-                              icon: Icon(Icons.temple_hindu),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  actions: [
-                    ElevatedButton(
-                      child: const Text("Save"),
-                      onPressed: () {
-                        if(_signupKottam.currentState!.validate()){
-                          kottamcontroller.newkottam({"kootam":signupnewKottam.text,"kovil":signupnewKovil.text});
-                          Get.back();
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            scrollable: true,
+            title: const Text("New Kootam & Kovil"),
+            content: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Form(
+                key: _signupKottam,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: signupnewKottam,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Enter kootam";
                         }
                       },
+                      decoration: const InputDecoration(
+                        labelText: "Kootom",
+                        icon: Icon(Icons.group_add_sharp),
+                      ),
+                    ),
+                    TextFormField(
+                      controller: signupnewKovil,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Enter kovil";
+                        }
+                      },
+                      decoration: const InputDecoration(
+                        labelText: "Kovil",
+                        icon: Icon(Icons.temple_hindu),
+                      ),
                     ),
                   ],
-                );
-              }
-      );
+                ),
+              ),
+            ),
+            actions: [
+              ElevatedButton(
+                child: const Text("Save"),
+                onPressed: () {
+                  if (_signupKottam.currentState!.validate()) {
+                    kottamcontroller.newkottam({
+                      "kootam": signupnewKottam.text,
+                      "kovil": signupnewKovil.text
+                    });
+                    Get.back();
+                  }
+                },
+              ),
+            ],
+          );
+        });
   }
+
 }

@@ -13,9 +13,10 @@ import "../utils/colors.dart";
 
 class Userdetailscontroller extends GetxController {
   var userDetail = [].obs;
+  var userFamily = [].obs;
+  var userOrg = [].obs;
   final _response = ''.obs;
   String get response => _response.value;
-
 
   Future<void> fetchEvents(user) async {
     try {
@@ -35,6 +36,42 @@ class Userdetailscontroller extends GetxController {
       print(eventsJson);
       userDetail.value =
           eventsJson.map((details) => UserDetails.fromJson(details)).toList();
+    } catch (e) {
+      print('Error fetching events: $e');
+    }
+  }
+
+  Future<void> fetchfamily(user) async {
+    print("scjkbcksjbckjbcjsdabcabc");
+    try {
+      final prefs = await SharedPreferences.getInstance();
+
+      await dotenv.load();
+      var response = await http.get(
+        Uri.parse(
+          "${dotenv.env['API_URL']}/api/method/g_elite_admin.g_elite_admin.Api.user_api_list.user_details?user=$user",
+        ),
+        headers: {
+          "Authorization": prefs.getString('token').toString(),
+        },
+      );
+      print(response.statusCode);
+      var eventsjsonFamily =
+          jsonDecode(response.body)['user_list']['family'] as List;
+      var eventsjsonOrg =
+          jsonDecode(response.body)['user_list']['organisation'] as List;
+      print(eventsjsonFamily);
+
+      print(eventsjsonOrg);
+      print('pppppppppppppppppppppppppp');
+
+      userFamily.value = eventsjsonFamily
+          .map((details) => FamilyDetails.fromJson(details))
+          .toList();
+      userOrg.value = eventsjsonOrg
+          .map((details) => OrganisationDetails.fromJson(details))
+          .toList();
+
     } catch (e) {
       print('Error fetching events: $e');
     }

@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../controller/eventcontroller.dart';
 import '../utils/helper.dart';
 
 class Login extends StatefulWidget {
@@ -24,6 +25,7 @@ class _LoginState extends State<Login> {
   bool _result = false;
   final _formKey = GlobalKey<FormState>();
   final Koottamcontroller kottamcontroller = Get.put(Koottamcontroller());
+  final Eventcontroller eventcontroller = Get.put(Eventcontroller());
 
   @override
   Widget build(BuildContext context) {
@@ -37,60 +39,63 @@ class _LoginState extends State<Login> {
               key: _formKey,
               child: Column(
                 children: [
-                  CarouselSlider.builder(
-                    itemCount: 15,
-                    itemBuilder: (BuildContext context, int itemIndex,
-                            int pageViewIndex) =>
-                        Banner(
-                      message: "20% off !!",
-                      location: BannerLocation.topStart,
-                      color: Colors.red,
-                      child: Container(
-                        color: Colors.white,
-                        height: 220,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
-                          child: Column(
-                            children: <Widget>[
-                              Image.network(
-                                  'https://media.geeksforgeeks.org/wp-content/cdn-uploads/20190806131525/forkPython.jpg'),
-                              const SizedBox(height: 5),
-                              const Text(
-                                'GeeksforGeeks',
-                                style: TextStyle(
-                                    color: Colors.green,
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.bold),
+                  Obx(() => CarouselSlider.builder(
+                        itemCount: eventcontroller.bannerImg.length,
+                        itemBuilder: (BuildContext context, int itemIndex,
+                            int pageViewIndex) {
+                          var banner = eventcontroller.bannerImg[itemIndex];
+
+                          return Banner(
+                            message: banner.offerMsg,
+                            location: BannerLocation.topStart,
+                            color: Colors.red,
+                            child: Container(
+                              color: Colors.white,
+                              height: 220,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(10, 20, 10, 20),
+                                child: Column(
+                                  children: <Widget>[
+                                    Image.network(banner.image),
+                                    const SizedBox(height: 5),
+                                    Text(
+                                      banner.description,
+                                      style: const TextStyle(
+                                          color: Colors.green,
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const Text(
+                                      'Fork Python Course',
+                                      style: TextStyle(
+                                          color: Colors.green,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              const Text(
-                                'Fork Python Course',
-                                style: TextStyle(
-                                    color: Colors.green,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
+                            ),
+                          );
+                        },
+                        options: CarouselOptions(
+                          height: 230,
+                          aspectRatio: 16 / 9,
+                          viewportFraction: 0.8,
+                          initialPage: 0,
+                          enableInfiniteScroll: true,
+                          reverse: false,
+                          autoPlay: true,
+                          autoPlayInterval: const Duration(seconds: 5),
+                          autoPlayAnimationDuration:
+                              const Duration(milliseconds: 1000),
+                          autoPlayCurve: Curves.fastOutSlowIn,
+                          enlargeCenterPage: true,
+                          enlargeFactor: 0.3,
+                          scrollDirection: Axis.horizontal,
                         ),
-                      ),
-                    ),
-                    options: CarouselOptions(
-                      height: 230,
-                      aspectRatio: 16 / 9,
-                      viewportFraction: 0.8,
-                      initialPage: 0,
-                      enableInfiniteScroll: true,
-                      reverse: false,
-                      autoPlay: true,
-                      autoPlayInterval: const Duration(seconds: 5),
-                      autoPlayAnimationDuration:
-                          const Duration(milliseconds: 1000),
-                      autoPlayCurve: Curves.fastOutSlowIn,
-                      enlargeCenterPage: true,
-                      enlargeFactor: 0.3,
-                      scrollDirection: Axis.horizontal,
-                    ),
-                  ),
+                      )),
                   const SizedBox(
                     height: 25,
                   ),

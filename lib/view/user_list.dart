@@ -158,6 +158,8 @@ class _UserlistState extends State<Userlist> {
                         Get.put(Userdetailscontroller());
                         Get.find<Userdetailscontroller>()
                             .fetchEvents(user.fullName.toString());
+                            Get.find<Userdetailscontroller>()
+                            .fetchfamily(user.fullName.toString());
                       },
                       child: Card(
                         shape: RoundedRectangleBorder(
