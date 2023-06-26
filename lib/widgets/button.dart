@@ -13,14 +13,12 @@ class Elevatebutton extends StatelessWidget {
   // const Elevatebutton({super.key});
   final String name;
   final Function onPressed;
-  var value;
   final GlobalKey<FormState> formKey;
   Elevatebutton({
     super.key,
     required this.formKey,
     required this.name,
     required this.onPressed,
-    required this.value,
   });
   @override
   Widget build(BuildContext context) {
@@ -39,9 +37,11 @@ class Elevatebutton extends StatelessWidget {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
         ),
         onPressed: () {
-          if (formKey.currentState!.validate()) {
-            onPressed();
-          }
+          onPressed();
+
+          // if (formKey.currentState!.validate()) {
+          //   onPressed();
+          // }
         },
         child: Text(name.toString()),
       ),

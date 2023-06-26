@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../utils/colors.dart';
+import '../widgets/button.dart';
 
 class MultipleFilepickerScreen extends StatefulWidget {
   const MultipleFilepickerScreen({super.key});
@@ -20,8 +21,12 @@ class MultipleFilepickerScreen extends StatefulWidget {
 
 class _MultipleFilepickerScreenState extends State<MultipleFilepickerScreen> {
   final FilePickerController filepi = Get.put(FilePickerController());
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
+    var doc = Get.arguments;
+
     return Scaffold(
       backgroundColor: AppColors.secondaryColor,
       appBar: AppBar(
@@ -196,43 +201,50 @@ class _MultipleFilepickerScreenState extends State<MultipleFilepickerScreen> {
                 ),
               ),
             ),
-            SizedBox(
-              width: 343,
-              height: 59,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12), // <-- Radius
-                  ),
-                  backgroundColor: AppColors.primaryColor,
-                  textStyle: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 17,
-                      letterSpacing: 1.0,
-                      fontWeight: FontWeight.w700),
-                ),
-                onPressed: () async {
-                  setState(() {
-                    upload = true;
-                  });
-                  // filepi.uploadFiles();
-                  // bool allFilesUploaded = await filepi.uploadFiles();
-                  // if (allFilesUploaded) {
-                  //   setState(() {
-                  //     print(allFilesUploaded);
-                  //     print("gfgfgfgfgfgfgffg");
-                  //     upload = false;
-                  //   });
-                  // }
-                },
-                child: (upload)
-                    ? LoadingAnimationWidget.prograssiveDots(
-                        color: Colors.white,
-                        size: 35,
-                      )
-                    : const Text('UPLOAD FILES'),
-              ),
-            ),
+            Elevatebutton(
+              formKey: formKey,
+              name: 'Submit',
+              onPressed: () => filepi.uploadFiles(doc, "Event"),
+            )
+
+            // SizedBox(
+            //   width: 343,
+            //   height: 59,
+            //   child: ElevatedButton(
+            //     style: ElevatedButton.styleFrom(
+            //       shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(12), // <-- Radius
+            //       ),
+            //       backgroundColor: AppColors.primaryColor,
+            //       textStyle: const TextStyle(
+            //           color: Colors.white,
+            //           fontSize: 17,
+            //           letterSpacing: 1.0,
+            //           fontWeight: FontWeight.w700),
+            //     ),
+            //     onPressed: () async {
+            //       setState(() {
+            //         upload = true;
+            //       });
+            //       // filepi.uploadFiles();
+            //       // bool allFilesUploaded = await filepi.uploadFiles();
+            //       // if (allFilesUploaded) {
+            //       //   setState(() {
+            //       //     print(allFilesUploaded);
+            //       //     print("gfgfgfgfgfgfgffg");
+            //       //     upload = false;
+            //       //   });
+            //       // }
+            //     },
+            //     child: (upload)
+            //         ? LoadingAnimationWidget.prograssiveDots(
+            //             color: Colors.white,
+            //             size: 35,
+            //           )
+            //         : const Text('UPLOAD FILES'),
+            //   ),
+            // ),
+            ,
             const SizedBox(
               height: 25,
             ),

@@ -236,11 +236,7 @@ class _BanneruploadState extends State<Bannerupload> {
                 Elevatebutton(
                   formKey: bannerkey,
                   name: 'Submit',
-                  value: {
-                    "title": "test",
-                    "description": descriptionController.text,
-                    "offer": messageController.text
-                  },
+                  
                   onPressed: () => filecontroller.banner({
                     "title": tittleController.text,
                     "description": descriptionController.text,

@@ -107,12 +107,6 @@ class _BottomsheetState extends State<Bottomsheet> {
             ),
             Elevatebutton(
               name: 'Send',
-              value: {
-                "user": widget.fullName,
-                "mobile": widget.mobileNo,
-                "description": message,
-                "email": email
-              },
               onPressed: () => eventcontroller.callNotifi({
                 "user": widget.fullName,
                 "mobile": widget.mobileNo,

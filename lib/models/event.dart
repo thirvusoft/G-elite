@@ -39,3 +39,19 @@ class Events {
     };
   }
 }
+
+class Eventadmin {
+  final String subject;
+  final String startsOn;
+  final String name;
+
+  Eventadmin({required this.subject, required this.startsOn, required this.name});
+
+  factory Eventadmin.fromJson(Map<String, dynamic> json) {
+    return Eventadmin(
+      subject: json['subject'],
+      startsOn: json['starts_on'],
+      name: json['name'],
+    );
+  }
+}

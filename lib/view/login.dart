@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../controller/bannercontroller.dart';
 import '../controller/eventcontroller.dart';
 import '../utils/helper.dart';
 
@@ -23,8 +24,10 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   bool _isHidden = true;
   bool _result = false;
+  int activePage = 1;
   final _formKey = GlobalKey<FormState>();
   final Koottamcontroller kottamcontroller = Get.put(Koottamcontroller());
+  final Bannerevent bannerevent = Get.find<Bannerevent>();
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +41,17 @@ class _LoginState extends State<Login> {
               key: _formKey,
               child: Column(
                 children: [
-                  Obx(() => CarouselSlider.builder(
-                        itemCount: eventcontroller.bannerlist.length,
+                  Obx(
+                    () => SizedBox(
+                      height: (MediaQuery.of(context).size.height) / 3,
+                      child: CarouselSlider.builder(
+                        itemCount: bannerevent.bannerlist.length,
                         itemBuilder: (BuildContext context, int itemIndex,
                             int pageViewIndex) {
                           print("pppppppppppdsddsdsdsdsds");
-                          print(eventcontroller.bannerlist.length);
-                          var banner = eventcontroller.bannerlist[itemIndex];
-                          if (eventcontroller.bannerlist.isNotEmpty) {
+                          print(bannerevent.bannerlist.length);
+                          var banner = bannerevent.bannerlist[itemIndex];
+                          if (bannerevent.bannerlist.isEmpty) {
                             return Container();
                           } else {
                             return Banner(
@@ -60,20 +66,57 @@ class _LoginState extends State<Login> {
                                       const EdgeInsets.fromLTRB(10, 20, 10, 20),
                                   child: Column(
                                     children: <Widget>[
-                                      Image.network(banner.image),
+                                      SizedBox(
+                                        height: (MediaQuery.of(context)
+                                                .size
+                                                .height) /
+                                            8,
+                                        width:
+                                            (MediaQuery.of(context).size.width),
+                                        child: Image.network(
+                                          banner.image,
+                                          fit: BoxFit.fill,
+                                          loadingBuilder: (BuildContext context,
+                                              Widget child,
+                                              ImageChunkEvent?
+                                                  loadingProgress) {
+                                            if (loadingProgress == null) {
+                                              return child;
+                                            }
+                                            return Center(
+                                              child: CircularProgressIndicator(
+                                                value: loadingProgress
+                                                            .expectedTotalBytes !=
+                                                        null
+                                                    ? loadingProgress
+                                                            .cumulativeBytesLoaded /
+                                                        loadingProgress
+                                                            .expectedTotalBytes!
+                                                    : null,
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
                                       const SizedBox(height: 5),
                                       Text(
-                                        banner.description,
+                                        banner.tittle,
                                         style: const TextStyle(
                                             color: Colors.green,
-                                            fontSize: 25,
+                                            fontSize: 20,
                                             fontWeight: FontWeight.bold),
                                       ),
-                                      const Text(
-                                        'Fork Python Course',
-                                        style: TextStyle(
+                                      const SizedBox(
+                                        height: 2,
+                                      ),
+                                      Text(
+                                        banner.description,
+                                        softWrap: false,
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
                                             color: Colors.green,
-                                            fontSize: 20,
+                                            fontSize: 12,
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ],
@@ -84,22 +127,36 @@ class _LoginState extends State<Login> {
                           }
                         },
                         options: CarouselOptions(
-                          height: 230,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              activePage = index;
+                            });
+                          },
+                          height: (MediaQuery.of(context).size.height) / 3,
                           aspectRatio: 16 / 9,
                           viewportFraction: 0.8,
-                          initialPage: 0,
+                          initialPage: 1,
                           enableInfiniteScroll: true,
                           reverse: false,
                           autoPlay: true,
                           autoPlayInterval: const Duration(seconds: 5),
                           autoPlayAnimationDuration:
                               const Duration(milliseconds: 1000),
-                          autoPlayCurve: Curves.fastOutSlowIn,
+                          autoPlayCurve: Curves.linear,
                           enlargeCenterPage: true,
                           enlargeFactor: 0.3,
                           scrollDirection: Axis.horizontal,
                         ),
-                      )),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: indicators(
+                          bannerevent.bannerlist.length, activePage)),
                   const SizedBox(
                     height: 25,
                   ),
@@ -276,5 +333,19 @@ class _LoginState extends State<Login> {
     } catch (e) {
       // Handle error
     }
+  }
+
+  List<Widget> indicators(imagesLength, currentIndex) {
+    return List<Widget>.generate(imagesLength, (index) {
+      return Container(
+        margin: EdgeInsets.all(3),
+        width: 10,
+        height: 10,
+        decoration: BoxDecoration(
+            color:
+                currentIndex == index ? AppColors.primaryColor : Colors.black26,
+            shape: BoxShape.circle),
+      );
+    });
   }
 }

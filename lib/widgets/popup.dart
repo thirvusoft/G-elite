@@ -41,7 +41,7 @@ class _PopupWidgetState extends State<PopupWidget> {
           onPressed: () async {
             SharedPreferences pref = await SharedPreferences.getInstance();
             await pref.clear();
-            Get.offAllNamed("/login");
+            Get.offAllNamed("/SplashScreen");
           },
         ),
       ],
