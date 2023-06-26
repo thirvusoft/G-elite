@@ -6,8 +6,8 @@ class Event {
 
   factory Event.fromJson(Map<String, dynamic> json) {
     return Event(
-      name: json['name'],
-      startsOn: DateTime.parse(json['starts_on']),
+      name: json['name'] ?? '',
+      startsOn: DateTime.parse(json['starts_on'] ?? ''),
     );
   }
 
@@ -27,8 +27,8 @@ class Events {
 
   factory Events.fromJson(Map<String, dynamic> json) {
     return Events(
-      name: json['name'],
-      startsOn: DateTime.parse(json['starts_on']),
+      name: json['name'] ?? '',
+      startsOn: DateTime.parse(json['starts_on'] ?? ''),
     );
   }
 
@@ -37,5 +37,21 @@ class Events {
       'name': name,
       'starts_on': startsOn.toIso8601String(),
     };
+  }
+}
+
+class Eventadmin {
+  final String subject;
+  final String startsOn;
+  final String name;
+
+  Eventadmin({required this.subject, required this.startsOn, required this.name});
+
+  factory Eventadmin.fromJson(Map<String, dynamic> json) {
+    return Eventadmin(
+      subject: json['subject'],
+      startsOn: json['starts_on'],
+      name: json['name'],
+    );
   }
 }

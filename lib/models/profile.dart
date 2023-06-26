@@ -33,27 +33,30 @@ class Profile {
   }
 }
 
-class MyModel {
-  String image;
-  String description;
-  String offerMsg;
+class Banner {
+  final String image;
+  final String description;
+  final String offerMsg;
+  final String tittle;
 
-  MyModel(
-      {required this.image, required this.description, required this.offerMsg});
+  Banner(
+      {required this.image,
+      required this.description,
+      required this.offerMsg,
+      required this.tittle});
 
-  factory MyModel.fromJson(Map<String, dynamic> json) {
-    return MyModel(
-      image: json['image'],
-      description: json['description'],
-      offerMsg: json['offer_msg'],
+  factory Banner.fromJson(Map<String, dynamic> json) {
+    return Banner(
+      image: (json['image'] == "")
+          ? "https://images.unsplash.com/photo-1614850715649-1d0106293bd1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+          : json['image'],
+      description: json['description'] ?? '',
+      offerMsg: json['offer_msg'] ?? '',
+      tittle: json['tittle'] ?? '',
     );
   }
+}
 
-  Map<String, dynamic> toJson() {
-    return {
-      'image': image,
-      'description': description,
-      'offer_msg': offerMsg,
-    };
-  }
+List<Banner> parseBanners(List<dynamic> json) {
+  return json.map((item) => Banner.fromJson(item)).toList();
 }

@@ -53,6 +53,28 @@ class UserDetail extends StatelessWidget {
                         ))),
                 Positioned(
                   top: 90,
+                  right: 60,
+                  child: Obx(
+                    () => Column(
+                      children: eventcontroller.userDetail
+                          .map(
+                            (user) => IconButton(
+                              onPressed: () async {
+                                Get.toNamed("/Bannerupload");
+                              },
+                              icon: const Icon(
+                                PhosphorIcons.newspaper_clipping_light,
+                                color: Colors.white,
+                                size: 25,
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 90,
                   right: 15,
                   child: Obx(
                     () => Column(
@@ -73,21 +95,9 @@ class UserDetail extends StatelessWidget {
                                           fullName: user.fullName,
                                           mobileNo: user.mobileNo),
                                 );
-                                // const uri =
-                                //     'mailto:test@example.org?subject=Greetings&body=Hello%20World';
-                                // if (await canLaunch(uri)) {
-                                //   await launch(uri);
-                                // } else {
-                                //   throw 'Could not launch $uri';
-                                // }
-
-                                // if (user.mobileNo.length >= 10) {
-                                //   await FlutterPhoneDirectCaller.callNumber(
-                                //       user.mobileNo);
-                                // }
                               },
                               icon: const Icon(
-                                PhosphorIcons.phone_outgoing,
+                                PhosphorIcons.phone_outgoing_light,
                                 color: Colors.white,
                                 size: 25,
                               ),
@@ -137,51 +147,6 @@ class UserDetail extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        Positioned(
-                            top: 90,
-                            left: 10,
-                            child: IconButton(
-                                onPressed: () {
-                                  Get.back();
-                                },
-                                icon: const Icon(
-                                  PhosphorIcons.caret_left_bold,
-                                  color: Colors.white,
-                                  size: 25,
-                                ))),
-                        Positioned(
-                            top: 90,
-                            right: 15,
-                            child: Obx(() => Column(
-                                  children: eventcontroller.userDetail
-                                      .map(
-                                        (user) => IconButton(
-                                          onPressed: () async {
-                                            print('==================');
-                                            Get.toNamed("/Bannerupload");
-                                            // showModalBottomSheet(
-                                            //   context: context,
-                                            //   shape: const RoundedRectangleBorder(
-                                            //     borderRadius: BorderRadius.vertical(
-                                            //       top: Radius.circular(25.0),
-                                            //     ),
-                                            //   ),
-                                            //   isScrollControlled: true,
-                                            //   builder: (BuildContext context) =>
-                                            //       Bottomsheet(
-                                            //           fullName: user.fullName,
-                                            //           mobileNo: user.mobileNo),
-                                            // );
-                                          },
-                                          icon: const Icon(
-                                            PhosphorIcons.phone_outgoing,
-                                            color: Colors.white,
-                                            size: 25,
-                                          ),
-                                        ),
-                                      )
-                                      .toList(),
-                                ))),
                         Obx(() => Column(
                               children: eventcontroller.userDetail
                                   .map((user) => Wrap(

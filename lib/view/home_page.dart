@@ -262,7 +262,9 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                                                                   color: AppColors.primaryColor),
                                                               title: Text(event.name.toString()))));
                                                 }),
-                                          ))),
+                                          )
+                                          )
+                                          ),
                             SizedBox(
                                 width: 10,
                                 height: 10,

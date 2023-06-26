@@ -4,6 +4,7 @@ import 'package:gelite/utils/colors.dart';
 import 'package:gelite/view/signup.dart';
 import 'package:gelite/view/user_list.dart';
 import 'package:get/get.dart';
+import '../controller/eventcontroller.dart';
 import '../controller/userlistcontroller.dart';
 import 'evencreation.dart';
 
@@ -19,6 +20,8 @@ class LandingPageController extends GetxController {
         final UserController usercontroller = Get.put(UserController());
         usercontroller.fetchEvents();
       }
+    } else if (tabIndex.value == 0) {
+      Get.find<Eventcontroller>().fetchEventsadmin();
     }
   }
 }

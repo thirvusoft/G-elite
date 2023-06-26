@@ -7,6 +7,8 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../controller/bannercontroller.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -19,6 +21,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void initState() {
     super.initState();
+    final Bannerevent bannerevent = Get.put(Bannerevent());
+
     time();
   }
 
@@ -33,6 +37,8 @@ class _SplashScreenState extends State<SplashScreen> {
     print(token.getString("token"));
     print(token.getString("roll"));
 
+    // Get.lazyPut(() => Bannerevent());
+    // Get.find<Bannerevent>().bannerList();
     if (token.getString('token') == null) {
       timer =
           Timer(const Duration(seconds: 3), () => Get.offAllNamed("/login"));
