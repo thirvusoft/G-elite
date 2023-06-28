@@ -8,6 +8,7 @@ import 'package:gelite/view/test.dart';
 import 'package:gelite/view/user_list.dart';
 import 'package:get/get.dart';
 import '../view/bannerupload.dart';
+import '../view/eventcreatioadmin.dart';
 import '../view/home_page.dart';
 import '../view/bottomnavigation.dart';
 import '../view/notification.dart';
@@ -29,6 +30,7 @@ class Routes {
   static String UserDetail = '/UserDetail';
   static String Notification = '/Notification';
   static String bannerupload = '/Bannerupload';
+  static String eventsadmin = '/Eventsadmin';
 }
 
 /// Add this list variable into your GetMaterialApp as the value of getPages parameter.
@@ -41,79 +43,59 @@ final getPages = [
   GetPage(
     name: Routes.screen2,
     page: () => LandingPage(),
-    transition: Transition.fade,
-    transitionDuration: const Duration(milliseconds: 500),
+    // transition: Transition.fade,
+    // transitionDuration: const Duration(milliseconds: 500),
   ),
   GetPage(
     name: Routes.screen3,
     page: () => const Homepage(),
-    transition: Transition.leftToRightWithFade,
-    transitionDuration: const Duration(milliseconds: 500),
   ),
   GetPage(
     name: Routes.screen4,
     page: () => Userlist(),
-    transition: Transition.leftToRightWithFade,
-    transitionDuration: const Duration(milliseconds: 500),
   ),
   GetPage(
     name: Routes.screen5,
     page: () => const Signup(),
-    transition: Transition.leftToRightWithFade,
-    transitionDuration: const Duration(milliseconds: 500),
   ),
   GetPage(
     name: Routes.screen6,
     page: () => const Profile(),
-    transition: Transition.leftToRightWithFade,
-    transitionDuration: const Duration(milliseconds: 200),
   ),
   GetPage(
     name: Routes.screen7,
     page: () => const MultipleFilepickerScreen(),
-    transition: Transition.leftToRightWithFade,
-    transitionDuration: const Duration(milliseconds: 500),
   ),
   GetPage(
     name: Routes.screen8,
     page: () => const qr(),
-    transition: Transition.leftToRightWithFade,
-    transitionDuration: const Duration(milliseconds: 500),
   ),
   GetPage(
     name: Routes.splashscreen,
     page: () => const SplashScreen(),
-    transition: Transition.leftToRightWithFade,
-    transitionDuration: const Duration(milliseconds: 500),
   ),
   GetPage(
     name: Routes.eventcreation,
     page: () => const EventCreation(),
-    transition: Transition.leftToRightWithFade,
-    transitionDuration: const Duration(milliseconds: 500),
   ),
   GetPage(
     name: Routes.landingPage1,
     page: () => const LandingPage1(),
-    transition: Transition.leftToRightWithFade,
-    transitionDuration: const Duration(milliseconds: 500),
   ),
   GetPage(
     name: Routes.UserDetail,
     page: () => UserDetail(),
-    transition: Transition.leftToRightWithFade,
-    transitionDuration: const Duration(milliseconds: 500),
   ),
   GetPage(
     name: Routes.Notification,
     page: () => Notification(),
-    transition: Transition.leftToRightWithFade,
-    transitionDuration: const Duration(milliseconds: 500),
   ),
   GetPage(
     name: Routes.bannerupload,
     page: () => Bannerupload(),
-    transition: Transition.leftToRightWithFade,
-    transitionDuration: const Duration(milliseconds: 500),
+  ),
+  GetPage(
+    name: Routes.eventsadmin,
+    page: () => Eventsadmin(),
   ),
 ];

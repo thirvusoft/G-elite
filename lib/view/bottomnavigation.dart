@@ -9,7 +9,7 @@ import '../controller/eventcontroller.dart';
 import '../controller/userlistcontroller.dart';
 import 'home_page.dart';
 
-class LandingPageController extends GetxController {
+class LandingPageControllers extends GetxController {
   var tabIndex = 0.obs;
 
   void changeTabIndex(int index) {
@@ -93,8 +93,8 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
-    final LandingPageController landingPageController =
-        Get.put(LandingPageController(), permanent: false);
+    final LandingPageControllers landingPageController =
+        Get.put(LandingPageControllers(), permanent: false);
     return SafeArea(
         child: Scaffold(
       bottomNavigationBar:

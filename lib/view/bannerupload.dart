@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -236,12 +237,18 @@ class _BanneruploadState extends State<Bannerupload> {
                 Elevatebutton(
                   formKey: bannerkey,
                   name: 'Submit',
-                  
-                  onPressed: () => filecontroller.banner({
-                    "title": tittleController.text,
-                    "description": descriptionController.text,
-                    "offer": messageController.text
-                  }),
+                  onPressed: () {
+                    filecontroller.banner({
+                      "title": tittleController.text,
+                      "description": descriptionController.text,
+                      "offer": messageController.text
+                    });
+                    Timer(const Duration(seconds: 2), () {
+                      tittleController.clear();
+                      descriptionController.clear();
+                      messageController.clear();
+                    });
+                  },
                 )
               ],
             ),

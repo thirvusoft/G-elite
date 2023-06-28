@@ -39,17 +39,6 @@ class _ProfileState extends State<Profile> {
         appBar: AppBar(
           toolbarHeight: 80,
           centerTitle: true,
-          actions: <Widget>[
-            IconButton(
-              icon: const HeroIcon(
-                HeroIcons.arrowUpOnSquare,
-                size: 25,
-              ),
-              onPressed: () {
-                Get.toNamed("filepicker");
-              },
-            )
-          ],
           leading: Padding(
             padding: const EdgeInsets.only(top: 25),
             child: IconButton(

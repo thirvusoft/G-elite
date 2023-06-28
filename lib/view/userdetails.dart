@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../controller/userdetailcontroller.dart';
@@ -60,7 +61,12 @@ class UserDetail extends StatelessWidget {
                           .map(
                             (user) => IconButton(
                               onPressed: () async {
-                                Get.toNamed("/Bannerupload");
+                                SharedPreferences token =
+                                    await SharedPreferences.getInstance();
+
+                                if (token.getString('roll') == "super_admin") {
+                                  Get.toNamed("/Bannerupload");
+                                }
                               },
                               icon: const Icon(
                                 PhosphorIcons.newspaper_clipping_light,

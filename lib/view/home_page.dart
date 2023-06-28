@@ -116,8 +116,8 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                                                 BorderRadius.circular(6),
                                           ),
                                           constraints: const BoxConstraints(
-                                            minWidth: 14,
-                                            minHeight: 14,
+                                            minWidth: 11,
+                                            minHeight: 11,
                                           ),
                                         ),
                                       )
@@ -262,9 +262,7 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                                                                   color: AppColors.primaryColor),
                                                               title: Text(event.name.toString()))));
                                                 }),
-                                          )
-                                          )
-                                          ),
+                                          ))),
                             SizedBox(
                                 width: 10,
                                 height: 10,

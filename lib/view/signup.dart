@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -50,7 +51,7 @@ class _SignupState extends State<Signup> {
           title: Padding(
             padding: const EdgeInsets.only(top: 25),
             child: Text(
-              'Sign Up',
+              'Registration',
               style: GoogleFonts.nunitoSans(
                 textStyle: TextStyle(
                     color: AppColors.scaffoldBackgroundColor,
@@ -489,6 +490,22 @@ class _SignupState extends State<Signup> {
                               "state": "Tamil Nadu",
                               "pincode": pincodeController.text
                             }));
+                            Timer(const Duration(seconds: 2), () {
+                              setState(() {
+                                emailidController.clear();
+                                firstnameController.clear();
+                                lastnameController.clear();
+                                mobilenumberController.clear();
+                                dobController.clear();
+                                kootamController.clear();
+                                districtController.clear();
+                                confirmController.clear();
+                                areaController.clear();
+                                landmarkController.clear();
+                                districtController.clear();
+                                pincodeController.clear();
+                              });
+                            });
                           }
                         },
                         child: (_result)
@@ -567,5 +584,4 @@ class _SignupState extends State<Signup> {
           );
         });
   }
-
 }

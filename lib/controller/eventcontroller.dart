@@ -9,6 +9,7 @@ class Eventcontroller extends GetxController {
   var eventList = [].obs;
   var eventLists = [].obs;
   var eventListsadmin = [].obs;
+  var isLoading = true.obs;
 
   @override
   void onInit() {
@@ -59,9 +60,11 @@ class Eventcontroller extends GetxController {
       print(response.statusCode);
       print(response.body);
       var eventsJson = jsonDecode(response.body)['event'] as List;
-
+      isLoading.value = true;
       eventListsadmin.value =
           eventsJson.map((event) => Eventadmin.fromJson(event)).toList();
+      await Future.delayed(const Duration(seconds: 2));
+      isLoading.value = false;
     } catch (e) {
       print('Error fetching events: $e');
     }

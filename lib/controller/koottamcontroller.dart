@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/colors.dart';
+import 'eventcontroller.dart';
 
 class Koottamcontroller extends GetxController {
   var kottom = [].obs;
@@ -54,47 +55,43 @@ class Koottamcontroller extends GetxController {
       print('Error fetching events: $e');
     }
   }
- Future newkottam(data) async
- {
-  final prefs = await SharedPreferences.getInstance();
-        await dotenv.load();
-         var response = await http.post(
-          Uri.parse(
-              "${dotenv.env['API_URL']}/api/method/g_elite_admin.g_elite_admin.Api.api_list.kootam_kovil_details"),
-              headers: 
-              {
-                "Authorization":prefs.getString('token').toString(),
-              }
-              ,
-          body: {
-            "data":jsonEncode(data)
-          }
-      
-          );
-                 Get.back();
-        print("ddddddddddddddadasddsdasdasdasd");
-        var value = jsonDecode(response.body);
-        print(value);
-        print("ddddddddddddddadasddsdasdasdasd");
 
-        Get.snackbar(
-          "Success",
-          value["message"],
-          icon: const Icon(
-            PhosphorIcons.check_circle_fill,
-            color: Colors.white,
-          ),
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: AppColors.primaryColor,
-          borderRadius: 20,
-          margin: const EdgeInsets.all(15),
-          colorText: Colors.white,
-          duration: const Duration(seconds: 3),
-          isDismissible: true,
-          forwardAnimationCurve: Curves.bounceIn,
-        );
+  Future newkottam(data) async {
+    final prefs = await SharedPreferences.getInstance();
+    await dotenv.load();
+    var response = await http.post(
+        Uri.parse(
+            "${dotenv.env['API_URL']}/api/method/g_elite_admin.g_elite_admin.Api.api_list.kootam_kovil_details"),
+        headers: {
+          "Authorization": prefs.getString('token').toString(),
+        },
+        body: {
+          "data": jsonEncode(data)
+        });
+    Get.back();
+    print("ddddddddddddddadasddsdasdasdasd");
+    var value = jsonDecode(response.body);
+    print(value);
+    print("ddddddddddddddadasddsdasdasdasd");
 
- }
+    Get.snackbar(
+      "Success",
+      value["message"],
+      icon: const Icon(
+        PhosphorIcons.check_circle_fill,
+        color: Colors.white,
+      ),
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: AppColors.primaryColor,
+      borderRadius: 20,
+      margin: const EdgeInsets.all(15),
+      colorText: Colors.white,
+      duration: const Duration(seconds: 3),
+      isDismissible: true,
+      forwardAnimationCurve: Curves.bounceIn,
+    );
+  }
+
   Future eventCreations(data) async {
     print("dddddddddddddddddd");
     print(data);
@@ -112,6 +109,8 @@ class Koottamcontroller extends GetxController {
 
       print(response.body);
       if (response.statusCode == 200) {
+        Get.find<Eventcontroller>().fetchEventsadmin();
+
         Get.back();
         print("ddddddddddddddadasddsdasdasdasd");
         var value = jsonDecode(response.body);
