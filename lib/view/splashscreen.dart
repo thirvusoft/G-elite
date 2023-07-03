@@ -37,8 +37,6 @@ class _SplashScreenState extends State<SplashScreen> {
     print(token.getString("token"));
     print(token.getString("roll"));
 
-    // Get.lazyPut(() => Bannerevent());
-    // Get.find<Bannerevent>().bannerList();
     if (token.getString('token') == null) {
       timer =
           Timer(const Duration(seconds: 3), () => Get.offAllNamed("/login"));

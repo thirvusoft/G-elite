@@ -21,7 +21,12 @@ class LandingPageController extends GetxController {
         usercontroller.fetchEvents();
       }
     } else if (tabIndex.value == 0) {
-      Get.find<Eventcontroller>().fetchEventsadmin();
+      if (Get.isRegistered<Eventcontroller>()) {
+        Get.find<Eventcontroller>().fetchEventsadmin();
+      } else {
+        final Eventcontroller eventcontroller = Get.put(Eventcontroller());
+        eventcontroller.fetchEventsadmin();
+      }
     }
   }
 }
