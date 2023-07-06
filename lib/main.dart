@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -7,13 +8,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'controller/routes.dart';
 
 void main() async {
-  runApp(const MyApp());
+  runApp(DevicePreview(
+    enabled: false,
+    builder: (context) => const MyApp(),
+  ));
 
   await dotenv.load(fileName: ".env");
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required List<String> items});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
+import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 import '../controller/eventcontroller.dart';
 import '../controller/notificationcontroller.dart';
 
@@ -65,7 +66,9 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
             children: [
               SizedBox(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 5,
+                height: (MediaQuery.of(context).size.height <= 667)
+                    ? MediaQuery.of(context).size.height / 4
+                    : MediaQuery.of(context).size.height / 5,
                 child: Stack(
                   children: [
                     Positioned(
@@ -75,7 +78,7 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                         child: Image.asset(
                           'assets/Background.png',
                           fit: BoxFit.cover,
-                          height: MediaQuery.of(context).size.height / 4,
+                          height: MediaQuery.of(context).size.height,
                           width: MediaQuery.of(context).size.width,
                         )),
                     Positioned(
@@ -141,7 +144,7 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                         child: Column(
                           children: [
                             Text(
-                              name,
+                              "$name ${MediaQuery.of(context).size.height}",
                               style: GoogleFonts.nunitoSans(
                                 textStyle: TextStyle(
                                     color: AppColors.scaffoldBackgroundColor,
@@ -158,7 +161,11 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                                 textStyle: TextStyle(
                                     color: AppColors.scaffoldBackgroundColor,
                                     letterSpacing: .5,
-                                    fontSize: 15),
+                                    fontSize:
+                                        (MediaQuery.of(context).size.height <=
+                                                667)
+                                            ? 10
+                                            : 15),
                               ),
                             )
                           ],
@@ -238,29 +245,37 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                                                   final event = eventcontroller
                                                       .eventList[index];
 
-                                                  return GestureDetector(
-                                                      onTap: () {
-                                                        Get.toNamed("/qr");
-                                                      },
-                                                      child: Card(
-                                                          shape: RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius.circular(
-                                                                      15)),
-                                                          child: ListTile(
-                                                              leading: CircleAvatar(
-                                                                  backgroundColor: AppColors
-                                                                      .secondaryColor,
-                                                                  child: Text(count
-                                                                      .toString())),
-                                                              subtitle: Text(event
-                                                                  .startsOn
-                                                                  .toString()),
-                                                              trailing: Icon(
-                                                                  PhosphorIcons
-                                                                      .caret_right,
-                                                                  color: AppColors.primaryColor),
-                                                              title: Text(event.name.toString()))));
+                                                  return ZoomTapAnimation(
+                                                      child: GestureDetector(
+                                                          onTap: () {
+                                                            Future.delayed(
+                                                                const Duration(
+                                                                    milliseconds:
+                                                                        500),
+                                                                () {
+                                                              Get.toNamed(
+                                                                  "/qr");
+                                                            });
+                                                          },
+                                                          child: Card(
+                                                              shape: RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius.circular(
+                                                                          15)),
+                                                              child: ListTile(
+                                                                  leading: CircleAvatar(
+                                                                      backgroundColor: AppColors
+                                                                          .secondaryColor,
+                                                                      child: Text(count
+                                                                          .toString())),
+                                                                  subtitle: Text(event
+                                                                      .startsOn
+                                                                      .toString()),
+                                                                  trailing: Icon(
+                                                                      PhosphorIcons
+                                                                          .caret_right,
+                                                                      color: AppColors.primaryColor),
+                                                                  title: Text(event.name.toString())))));
                                                 }),
                                           ))),
                             SizedBox(

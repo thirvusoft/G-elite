@@ -5,6 +5,7 @@ import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 import '../controller/userdetailcontroller.dart';
 import '../controller/userlistcontroller.dart';
@@ -152,13 +153,17 @@ class _UserlistState extends State<Userlist> {
 
                 return Padding(
                     padding: const EdgeInsets.only(left: 10, right: 10),
-                    child: GestureDetector(
+                    child: ZoomTapAnimation(
+                        child: GestureDetector(
                       onTap: () {
-                        Get.toNamed('/UserDetail');
+                        Future.delayed(Duration(milliseconds: 500), () {
+                          Get.toNamed('/UserDetail');
+                        });
+                        // Get.toNamed('/UserDetail');
                         Get.put(Userdetailscontroller());
                         Get.find<Userdetailscontroller>()
                             .fetchEvents(user.fullName.toString());
-                            Get.find<Userdetailscontroller>()
+                        Get.find<Userdetailscontroller>()
                             .fetchfamily(user.fullName.toString());
                       },
                       child: Card(
@@ -180,7 +185,7 @@ class _UserlistState extends State<Userlist> {
                           title: Text(user.fullName.toString()),
                         ),
                       ),
-                    ));
+                    )));
               },
             ));
           }
