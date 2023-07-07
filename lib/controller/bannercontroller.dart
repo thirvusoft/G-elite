@@ -10,7 +10,8 @@ import '../models/profile.dart';
 class Bannerevent extends GetxController {
   var bannerlist = [].obs;
   var businesscard_ = [].obs;
-  var isLoading = true.obs;
+  var isLoading = false.obs;
+  var title = "".obs;
 
   List businessList = [
     {
@@ -60,9 +61,7 @@ class Bannerevent extends GetxController {
       print(response.statusCode);
       if (response.statusCode == 200) {
         var bannerImage = jsonDecode(response.body)['message'] as List;
-        print(bannerImage);
-        print("bannerImage");
-        print("bannerImage");
+
         bannerlist.value =
             bannerImage.map((banner) => Banner.fromJson(banner)).toList();
       }
@@ -79,32 +78,27 @@ class Bannerevent extends GetxController {
       if (option == "Option 1") {
         if (item['Option 1'] != null) {
           businesscard_.add(item['Option 1']);
+          title.value = item['Option 1']['name'];
           await Future.delayed(const Duration(seconds: 2));
-
-          isLoading.value = false;
-        } else {
           isLoading.value = false;
         }
       } else if (option == "Option 2") {
-        isLoading.value = true;
-
         if (item['Option 2'] != null) {
+          isLoading.value = true;
           businesscard_.add(item['Option 2']);
+          title.value = item['Option 2']['name'];
           await Future.delayed(const Duration(seconds: 2));
           isLoading.value = false;
         }
       } else if (option == "Option 3") {
-        isLoading.value = true;
-
         if (item['Option 3'] != null) {
+          isLoading.value = true;
           businesscard_.add(item['Option 3']);
+          title.value = item['Option 3']['name'];
           await Future.delayed(const Duration(seconds: 2));
           isLoading.value = false;
         }
       }
     }
-
-    isLoading.value =
-        false; // Set isLoading to false after the loading is complete
   }
 }

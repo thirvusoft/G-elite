@@ -100,7 +100,7 @@ class _LandingPageState extends State<LandingPage> {
                           HeroIcons.creditCard,
                           size: 20.0,
                         ))),
-                label: 'User',
+                label: 'Card',
                 backgroundColor: AppColors.primaryColor,
               ),
             ],
