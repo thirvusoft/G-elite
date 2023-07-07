@@ -4,9 +4,13 @@ import 'package:gelite/utils/colors.dart';
 import 'package:gelite/utils/helper.dart';
 import 'package:gelite/view/user_list.dart';
 import 'package:get/get.dart';
+import 'package:get/get_navigation/src/routes/default_transitions.dart';
+import 'package:heroicons/heroicons.dart';
+import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 import '../controller/eventcontroller.dart';
 import '../controller/userlistcontroller.dart';
+import 'businesscard.dart';
 import 'home_page.dart';
 
 class LandingPageControllers extends GetxController {
@@ -64,26 +68,39 @@ class _LandingPageState extends State<LandingPage> {
             selectedLabelStyle: selectedLabelStyle,
             items: [
               BottomNavigationBarItem(
-                icon: Container(
+                icon: ZoomTapAnimation(
+                    child: Container(
                   margin: const EdgeInsets.only(bottom: 7),
                   child: const Icon(
                     PhosphorIcons.house,
                     size: 20.0,
                   ),
-                ),
+                )),
                 label: 'Home',
                 backgroundColor: AppColors.primaryColor,
               ),
               BottomNavigationBarItem(
-                icon: Container(
+                icon: ZoomTapAnimation(
+                    child: Container(
                   margin: const EdgeInsets.only(bottom: 7),
                   child: Icon(
                     PhosphorIcons.user,
                     size: 20.0,
                     color: AppColors.primaryColor,
                   ),
-                ),
+                )),
                 label: 'User',
+                backgroundColor: AppColors.primaryColor,
+              ),
+              BottomNavigationBarItem(
+                icon: ZoomTapAnimation(
+                    child: Container(
+                        margin: const EdgeInsets.only(bottom: 7),
+                        child: const HeroIcon(
+                          HeroIcons.creditCard,
+                          size: 20.0,
+                        ))),
+                label: 'Card',
                 backgroundColor: AppColors.primaryColor,
               ),
             ],
@@ -101,10 +118,7 @@ class _LandingPageState extends State<LandingPage> {
           buildBottomNavigationMenu(context, landingPageController),
       body: Obx(() => IndexedStack(
             index: landingPageController.tabIndex.value,
-            children: const [
-              Homepage(),
-              Userlist(),
-            ],
+            children: const [Homepage(), Userlist(), Businesscard()],
           )),
     ));
   }

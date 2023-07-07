@@ -8,6 +8,7 @@ import 'package:gelite/view/test.dart';
 import 'package:gelite/view/user_list.dart';
 import 'package:get/get.dart';
 import '../view/bannerupload.dart';
+import '../view/businessdetails.dart';
 import '../view/eventcreatioadmin.dart';
 import '../view/home_page.dart';
 import '../view/bottomnavigation.dart';
@@ -31,6 +32,7 @@ class Routes {
   static String Notification = '/Notification';
   static String bannerupload = '/Bannerupload';
   static String eventsadmin = '/Eventsadmin';
+  static String businessdetails = '/businessdetails';
 }
 
 /// Add this list variable into your GetMaterialApp as the value of getPages parameter.
@@ -97,5 +99,9 @@ final getPages = [
   GetPage(
     name: Routes.eventsadmin,
     page: () => Eventsadmin(),
+  ),
+  GetPage(
+    name: Routes.businessdetails,
+    page: () => Businessdetails(),
   ),
 ];

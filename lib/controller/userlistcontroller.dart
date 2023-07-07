@@ -38,7 +38,6 @@ class UserController extends GetxController {
 
   void fliter(change) {
     List<Map<String, dynamic>> temp = [];
-    print(eventsJson);
     for (var i in eventsJson) {
       if ((i["full_name"]
               .toLowerCase()

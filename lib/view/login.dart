@@ -48,8 +48,6 @@ class _LoginState extends State<Login> {
                         itemCount: bannerevent.bannerlist.length,
                         itemBuilder: (BuildContext context, int itemIndex,
                             int pageViewIndex) {
-                          print("pppppppppppdsddsdsdsdsds");
-                          print(bannerevent.bannerlist.length);
                           var banner = bannerevent.bannerlist[itemIndex];
                           if (bannerevent.bannerlist.isEmpty) {
                             return Container();
@@ -283,11 +281,14 @@ class _LoginState extends State<Login> {
   }
 
   Future login(String mobilenumber, String phone) async {
-    await Future.delayed(const Duration(seconds: 2));
+    print("peppepepppepepepepe");
+
+    // await Future.delayed(const Duration(seconds: 2));
     final prefs = await SharedPreferences.getInstance();
     final dio = Dio();
     await dotenv.load();
-
+    print(mobilenumber);
+    print(phone);
     try {
       final response = await dio.post(
         '${dotenv.env['API_URL']}/api/method/g_elite_admin.g_elite_admin.Api.api_list.login',
@@ -299,6 +300,7 @@ class _LoginState extends State<Login> {
           'password': phone,
         },
       );
+      print(response.statusCode);
       print(response.data);
       if (response.statusCode == 200) {
         var value;
