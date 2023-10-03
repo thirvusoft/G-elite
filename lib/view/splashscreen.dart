@@ -21,7 +21,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void initState() {
     super.initState();
-    final Bannerevent bannerevent = Get.put(Bannerevent());
 
     time();
   }
@@ -43,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
     } else if (token.getString('roll') == "super_admin") {
       timer = Timer(
           const Duration(seconds: 3), () => Get.offAllNamed("/landingPage1"));
-    } else if (token.getString('roll') == " ") {
+    } else if (token.getString('roll') == "user") {
       timer = Timer(
           const Duration(seconds: 3), () => Get.offAllNamed("/LandingPage"));
     }

@@ -23,7 +23,7 @@ class _ProfileState extends State<Profile> {
   final ProfileController profilecontroller = Get.put(ProfileController());
   bool _isHidden = true;
   final _profileKey = GlobalKey<FormState>();
-  bool _result = false;
+  final bool _result = false;
   String password = '';
   String mobileNo = "";
   String dob = "";

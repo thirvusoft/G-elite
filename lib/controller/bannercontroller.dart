@@ -46,7 +46,7 @@ class Bannerevent extends GetxController {
   @override
   void onInit() {
     // bannerList();
-    bannerList();
+    // bannerList();
     super.onInit();
   }
 

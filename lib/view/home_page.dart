@@ -144,7 +144,7 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                         child: Column(
                           children: [
                             Text(
-                              "$name ${MediaQuery.of(context).size.height}",
+                              name,
                               style: GoogleFonts.nunitoSans(
                                 textStyle: TextStyle(
                                     color: AppColors.scaffoldBackgroundColor,

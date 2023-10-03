@@ -27,7 +27,7 @@ class _LoginState extends State<Login> {
   int activePage = 1;
   final _formKey = GlobalKey<FormState>();
   final Koottamcontroller kottamcontroller = Get.put(Koottamcontroller());
-  final Bannerevent bannerevent = Get.find<Bannerevent>();
+  // final Bannerevent bannerevent = Get.find<Bannerevent>();
 
   @override
   Widget build(BuildContext context) {
@@ -41,123 +41,123 @@ class _LoginState extends State<Login> {
               key: _formKey,
               child: Column(
                 children: [
-                  Obx(
-                    () => SizedBox(
-                      height: (MediaQuery.of(context).size.height) / 3,
-                      child: CarouselSlider.builder(
-                        itemCount: bannerevent.bannerlist.length,
-                        itemBuilder: (BuildContext context, int itemIndex,
-                            int pageViewIndex) {
-                          var banner = bannerevent.bannerlist[itemIndex];
-                          if (bannerevent.bannerlist.isEmpty) {
-                            return Container();
-                          } else {
-                            return Banner(
-                              message: banner.offerMsg,
-                              location: BannerLocation.topStart,
-                              color: Colors.red,
-                              child: Container(
-                                color: Colors.white,
-                                height: 220,
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(10, 20, 10, 20),
-                                  child: Column(
-                                    children: <Widget>[
-                                      SizedBox(
-                                        height: (MediaQuery.of(context)
-                                                .size
-                                                .height) /
-                                            8,
-                                        width:
-                                            (MediaQuery.of(context).size.width),
-                                        child: Image.network(
-                                          banner.image,
-                                          fit: BoxFit.fill,
-                                          loadingBuilder: (BuildContext context,
-                                              Widget child,
-                                              ImageChunkEvent?
-                                                  loadingProgress) {
-                                            if (loadingProgress == null) {
-                                              return child;
-                                            }
-                                            return Center(
-                                              child: CircularProgressIndicator(
-                                                value: loadingProgress
-                                                            .expectedTotalBytes !=
-                                                        null
-                                                    ? loadingProgress
-                                                            .cumulativeBytesLoaded /
-                                                        loadingProgress
-                                                            .expectedTotalBytes!
-                                                    : null,
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                      const SizedBox(height: 5),
-                                      Text(
-                                        banner.tittle,
-                                        style: const TextStyle(
-                                            color: Colors.green,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      const SizedBox(
-                                        height: 2,
-                                      ),
-                                      Text(
-                                        banner.description,
-                                        softWrap: false,
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                            color: Colors.green,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          }
-                        },
-                        options: CarouselOptions(
-                          onPageChanged: (index, reason) {
-                            setState(() {
-                              activePage = index;
-                            });
-                          },
-                          height: (MediaQuery.of(context).size.height) / 3,
-                          aspectRatio: 16 / 9,
-                          viewportFraction: 0.8,
-                          initialPage: 1,
-                          enableInfiniteScroll: true,
-                          reverse: false,
-                          autoPlay: true,
-                          autoPlayInterval: const Duration(seconds: 5),
-                          autoPlayAnimationDuration:
-                              const Duration(milliseconds: 1000),
-                          autoPlayCurve: Curves.linear,
-                          enlargeCenterPage: true,
-                          enlargeFactor: 0.3,
-                          scrollDirection: Axis.horizontal,
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Obx(
+                  //   () => SizedBox(
+                  //     height: (MediaQuery.of(context).size.height) / 3,
+                  //     child: CarouselSlider.builder(
+                  //       itemCount: bannerevent.bannerlist.length,
+                  //       itemBuilder: (BuildContext context, int itemIndex,
+                  //           int pageViewIndex) {
+                  //         var banner = bannerevent.bannerlist[itemIndex];
+                  //         if (bannerevent.bannerlist.isEmpty) {
+                  //           return Container();
+                  //         } else {
+                  //           return Banner(
+                  //             message: banner.offerMsg,
+                  //             location: BannerLocation.topStart,
+                  //             color: Colors.red,
+                  //             child: Container(
+                  //               color: Colors.white,
+                  //               height: 220,
+                  //               child: Padding(
+                  //                 padding:
+                  //                     const EdgeInsets.fromLTRB(10, 20, 10, 20),
+                  //                 child: Column(
+                  //                   children: <Widget>[
+                  //                     SizedBox(
+                  //                       height: (MediaQuery.of(context)
+                  //                               .size
+                  //                               .height) /
+                  //                           8,
+                  //                       width:
+                  //                           (MediaQuery.of(context).size.width),
+                  //                       child: Image.network(
+                  //                         banner.image,
+                  //                         fit: BoxFit.fill,
+                  //                         loadingBuilder: (BuildContext context,
+                  //                             Widget child,
+                  //                             ImageChunkEvent?
+                  //                                 loadingProgress) {
+                  //                           if (loadingProgress == null) {
+                  //                             return child;
+                  //                           }
+                  //                           return Center(
+                  //                             child: CircularProgressIndicator(
+                  //                               value: loadingProgress
+                  //                                           .expectedTotalBytes !=
+                  //                                       null
+                  //                                   ? loadingProgress
+                  //                                           .cumulativeBytesLoaded /
+                  //                                       loadingProgress
+                  //                                           .expectedTotalBytes!
+                  //                                   : null,
+                  //                             ),
+                  //                           );
+                  //                         },
+                  //                       ),
+                  //                     ),
+                  //                     const SizedBox(height: 5),
+                  //                     Text(
+                  //                       banner.tittle,
+                  //                       style: const TextStyle(
+                  //                           color: Colors.green,
+                  //                           fontSize: 20,
+                  //                           fontWeight: FontWeight.bold),
+                  //                     ),
+                  //                     const SizedBox(
+                  //                       height: 2,
+                  //                     ),
+                  //                     Text(
+                  //                       banner.description,
+                  //                       softWrap: false,
+                  //                       maxLines: 3,
+                  //                       overflow: TextOverflow.ellipsis,
+                  //                       style: const TextStyle(
+                  //                           color: Colors.green,
+                  //                           fontSize: 12,
+                  //                           fontWeight: FontWeight.bold),
+                  //                     ),
+                  //                   ],
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //           );
+                  //         }
+                  //       },
+                  //       options: CarouselOptions(
+                  //         onPageChanged: (index, reason) {
+                  //           setState(() {
+                  //             activePage = index;
+                  //           });
+                  //         },
+                  //         height: (MediaQuery.of(context).size.height) / 3,
+                  //         aspectRatio: 16 / 9,
+                  //         viewportFraction: 0.8,
+                  //         initialPage: 1,
+                  //         enableInfiniteScroll: true,
+                  //         reverse: false,
+                  //         autoPlay: true,
+                  //         autoPlayInterval: const Duration(seconds: 5),
+                  //         autoPlayAnimationDuration:
+                  //             const Duration(milliseconds: 1000),
+                  //         autoPlayCurve: Curves.linear,
+                  //         enlargeCenterPage: true,
+                  //         enlargeFactor: 0.3,
+                  //         scrollDirection: Axis.horizontal,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   const SizedBox(
                     height: 10,
                   ),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: indicators(
-                          bannerevent.bannerlist.length, activePage)),
-                  const SizedBox(
-                    height: 25,
-                  ),
+                  // Row(
+                  //     mainAxisAlignment: MainAxisAlignment.center,
+                  //     children: indicators(
+                  //         bannerevent.bannerlist.length, activePage)),
+                  // const SizedBox(
+                  //   height: 25,
+                  // ),
                   CircleAvatar(
                     radius: 60,
                     backgroundColor: Colors.white.withOpacity(0.1),
@@ -312,7 +312,12 @@ class _LoginState extends State<Login> {
 
         print("lllllllllllllllllllllll");
         print(prefs.getString('kottam'));
-
+        if (value["roll"] == "super_admin") {
+          print("pppppppppppppppppppppppppppppppppp");
+          Get.offAllNamed("/landingPage1");
+        } else {
+          Get.offAllNamed("/LandingPage");
+        }
         Fluttertoast.showToast(
             msg: value["message"],
             toastLength: Toast.LENGTH_SHORT,
@@ -326,11 +331,6 @@ class _LoginState extends State<Login> {
         await prefs.setString('kottam', value["kottam"]);
         await prefs.setString('roll', value["roll"]);
         await prefs.setString('doc_name', value["doc_name"]);
-        if (value["roll"] == "super_admin") {
-          Get.offAllNamed("/landingPage1");
-        } else {
-          Get.offAllNamed("/LandingPage");
-        }
       }
     } catch (e) {
       // Handle error
